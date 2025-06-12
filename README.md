@@ -8,7 +8,6 @@ Nosso objetivo é garantir a qualidade contínua das aplicações por meio de te
 
 - 📂 `sprint-01/`, `sprint-02/`, etc.: Cada pasta representa uma sprint semanal, contendo os testes realizados no período.
 - 🧪 Testes podem incluir: testes de API (Postman), testes funcionais, scripts de automação, evidências e documentos.
-- 📋 Cada sprint deve conter um `README.md` interno com a descrição dos testes executados.
 
 ## 📅 Estrutura de Sprints
 
