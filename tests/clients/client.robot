@@ -43,3 +43,4 @@ Cliente campos obrigatórios vazios
 Cliente duplicado (409)
     [Tags]    client    post    nao_funcional    duplicado
     Cliente Já Cadastrado no Sistema
+
