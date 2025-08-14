@@ -44,3 +44,6 @@ Cliente duplicado (409)
     [Tags]    client    post    nao_funcional    duplicado
     Cliente Já Cadastrado no Sistema
 
+Remover cliente por id
+    [Tags]    client    delete    funcional
+    Remover Cliente por Id (Sucesso)

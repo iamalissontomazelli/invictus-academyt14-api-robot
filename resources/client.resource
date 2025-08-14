@@ -204,7 +204,18 @@ Atualizar Cliente com Body Inválido (400)
     ...                address=${EMPTY}
     Run Keyword And Expect Error    HTTPError: 400*    PUT On Session    alias=develop    url=/client/${CLIENTE_ID}    json=${body}
 
-Remover Cliente com Id Inexistente (404)
-    [Documentation]    DELETE /client/{id inexistente} → 404
-    ${id_fake}=        Set Variable    000000000000000000000000
-    Run Keyword And Expect Error    HTTPError: 404*    DELETE On Session    alias=develop    url=/client/${id_fake}
+
+# ========================= DELETE =========================
+Remover Cliente por Id (Sucesso)
+    [Documentation]    DELETE /client/{id} → remove o cliente e valida que não existe mais.
+    # 1) Pré-condição: cria um cliente e guarda ${CLIENTE_ID}
+    Cadastrar Cliente com Sucesso
+
+    # 2) Tenta deletar aceitando 200 OU 204 (alguns backends variam)
+    ${ok200}=    Run Keyword And Return Status
+    ...          DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=200
+    Run Keyword If    not ${ok200}
+    ...    DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=204
+
+    # 3) Confirma que realmente foi removido (GET deve falhar com 404)
+    Run Keyword And Expect Error    HTTPError: 404*    GET On Session    alias=develop    url=/client/${CLIENTE_ID}
