@@ -109,6 +109,7 @@ Atulaizar diretoria com campo vazio
   ${body}   Create Dictionary  boardName=  
   Run Keyword And Expect Error  HTTPError: 400*  PUT On Session  alias=develop   url=/api/board/$${Diretoria_ID}  json=${body}
   Dictionary Should Contain Item    ${resposta.json()}   msg   O campo Diretoria é obrigatório.
+  
  
 ##--Get--##
 ##__Funcional__##
@@ -118,7 +119,7 @@ Listar diretorias
      Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
      Cadastrar diretoria com sucesso
       ${resposta}  GET On Session  alias=develop   url=board/        expected_status=200  
-  Log   RESPOSTAAAA LISTAAAAA: ${resposta.json()}
+  
  
 Mostrar diretoria por id
      ${TOKEN}       Login com sysadmin 
@@ -127,7 +128,7 @@ Mostrar diretoria por id
      Cadastrar Diretoria com Sucesso
      ${resposta}  GET On Session  alias=develop  url=board/${Diretoria_ID}     expected_status=200 
      Set Suite Variable            ${MOSTRAR_Diretoria_ID}              ${resposta.json()["board"]["_id"]} 
-     Log To Console      MOSTRAR DIRETORIA POR ID: ${MOSTRAR_Diretoria_ID}
+    
  
 ##__Não Funcional__##
 pesquisar Diretoria por id inválido
@@ -137,4 +138,4 @@ pesquisar Diretoria por id inválido
      Cadastrar Diretoria com Sucesso
      ${resposta}      GET On Session      alias=develop      url=board/689f8171e56b350eb670d943         expected_status=400
      Set Suite Variable            ${MOSTRAR_Diretoria_ID}              ${resposta.json()["msg"]} 
-     Log To Console      MOSTRAR DIRETORIA POR ID: ${MOSTRAR_Diretoria_ID}
+     
