@@ -1,668 +1,354 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.5 on win32)" generated="2025-08-12T21:10:49.867677" rpa="false" schemaversion="5">
-<suite id="s1" name="Company Test" source="C:\Users\aline\invictus-academyt14-api-robot\tests\company\company_test.robot">
-<test id="s1-t1" name="Cadastrar Nova Company Com Sucesso" line="6">
-<kw name="Cadastrar Company com Sucesso" owner="company">
-<kw name="Login com sysadmin" owner="login">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:50.436315" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
-<var>${body}</var>
-<arg>mail=sysadmin@qacoders.com</arg>
-<arg>password=1234@Test</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:50.435726" elapsed="0.000660"/>
-</kw>
-<kw name="Criar Sessão" owner="login">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:50.436931" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
-<var>${headers}</var>
-<arg>accept=application/json</arg>
-<arg>Content-Type=application/json</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:50.436794" elapsed="0.000161"/>
-</kw>
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:50.437251" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<arg>alias=develop</arg>
-<arg>url=${baseURL}</arg>
-<arg>headers=${headers}</arg>
-<arg>verify=true</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:50.437042" elapsed="0.000368"/>
-</kw>
-<status status="PASS" start="2025-08-12T21:10:50.436608" elapsed="0.000864"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:51.335873" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/login 
- path_url=/api/login 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
- body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
- </msg>
-<msg time="2025-08-12T21:10:51.336074" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/login 
- status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:42 GMT', 'Etag': 'W/"536-lGcLmwu6WXJbdfIuNUb1ZdfRfXM"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6888ecda6d0acf13553c9eec","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LgD0Z/OD9TL6XFx2gPEpq.S6JTP1EDgaT/I5LIo7VeMWOqtzQJh2K","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 29/07/2025, 12:46:34 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6888ecda6d0acf13553c9eed"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDIsImV4cCI6MTc1NTEzMDI0Mn0.YV6_uqdIVWPr-Uk-C6sQ6grXTI1htt7_QXDu1UPh_TE"} 
- </msg>
-<msg time="2025-08-12T21:10:51.336345" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
-<var>${resposta}</var>
-<arg>alias=develop</arg>
-<arg>url=/login</arg>
-<arg>json=${body}</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:50.437543" elapsed="0.898848"/>
-</kw>
-<kw name="Status Should Be" owner="RequestsLibrary">
-<arg>200</arg>
-<arg>${resposta}</arg>
-<doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.336655" elapsed="0.000427"/>
-</kw>
-<kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.338379" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
-<arg>${TOKEN}</arg>
-<arg>${resposta.json()["token"]}</arg>
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.337263" elapsed="0.001182"/>
-</kw>
-<return>
-<value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-12T21:10:51.338518" elapsed="0.000066"/>
-</return>
-<msg time="2025-08-12T21:10:51.338945" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
-<var>${TOKEN}</var>
-<status status="PASS" start="2025-08-12T21:10:50.434900" elapsed="0.904072"/>
-</kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.339290" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWV...</msg>
-<var>${headers}</var>
-<arg>accept=application/json</arg>
-<arg>Content-Type=application/json</arg>
-<arg>Authorization=${TOKEN}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.339082" elapsed="0.000233"/>
-</kw>
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:51.339599" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDIsImV4cCI6MTc1NTEzMDI0Mn0.YV6_uqdIVWPr-Uk-C6sQ6grXTI1htt7_QXDu1UPh_TE'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<arg>alias=develop</arg>
-<arg>url=${baseURL}</arg>
-<arg>headers=${headers}</arg>
-<arg>verify=true</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:51.339417" elapsed="0.000306"/>
-</kw>
-<kw name="Criar Company" owner="company">
-<kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:51.340252" level="INFO">${nome1_raw} = valcqq</msg>
-<var>${nome1_raw}</var>
-<arg>length=6</arg>
-<arg>chars=[LOWER]</arg>
-<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.340054" elapsed="0.000391"/>
-</kw>
-<kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:51.340744" level="INFO">${nome1} = Valcqq</msg>
-<var>${nome1}</var>
-<arg>${nome1_raw}</arg>
-<doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.340556" elapsed="0.000205"/>
-</kw>
-<kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:51.340962" level="INFO">${nome2_raw} = dhuugkwm</msg>
-<var>${nome2_raw}</var>
-<arg>length=8</arg>
-<arg>chars=[LOWER]</arg>
-<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.340828" elapsed="0.000150"/>
-</kw>
-<kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:51.341132" level="INFO">${nome2} = Dhuugkwm</msg>
-<var>${nome2}</var>
-<arg>${nome2_raw}</arg>
-<doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.341044" elapsed="0.000103"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.341298" level="INFO">${responsavel} = Valcqq Dhuugkwm</msg>
-<var>${responsavel}</var>
-<arg>${nome1} ${nome2}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.341205" elapsed="0.000107"/>
-</kw>
-<kw name="Should Match Regexp" owner="BuiltIn">
-<arg>${responsavel}</arg>
-<arg>^[A-Z][a-z]+ [A-Z][a-z]+$</arg>
-<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.341369" elapsed="0.000134"/>
-</kw>
-<kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:51.342138" level="INFO">${telefone_aleatorio} = 239569543</msg>
-<var>${telefone_aleatorio}</var>
-<arg>length=9</arg>
-<arg>chars=[NUMBERS]</arg>
-<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.341569" elapsed="0.000589"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.342319" level="INFO">${telefone_random} = 5511239569543</msg>
-<var>${telefone_random}</var>
-<arg>5511${telefone_aleatorio}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.342228" elapsed="0.000107"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.342528" level="INFO">${numero_random} = 2604</msg>
-<var>${numero_random}</var>
-<arg>random.randint(1, 9999)</arg>
-<arg>modules=random</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.342394" elapsed="0.000151"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.342745" level="INFO">${cep_random} = 01001000</msg>
-<var>${cep_random}</var>
-<arg>random.choice(["04777001", "01001000", "12345678"])</arg>
-<arg>modules=random</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.342614" elapsed="0.000147"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.342949" level="INFO">${cidade_random} = São Paulo</msg>
-<var>${cidade_random}</var>
-<arg>random.choice(["São Paulo", "Rio de Janeiro", "Curitiba"])</arg>
-<arg>modules=random</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.342826" elapsed="0.000139"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.343141" level="INFO">${estado_random} = SP</msg>
-<var>${estado_random}</var>
-<arg>random.choice(["SP", "RJ", "PR"])</arg>
-<arg>modules=random</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343029" elapsed="0.000127"/>
-</kw>
-<kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:51.343334" level="INFO">${bairro_random_raw} = dnrtajrc</msg>
-<var>${bairro_random_raw}</var>
-<arg>length=8</arg>
-<arg>chars=[LOWER]</arg>
-<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343216" elapsed="0.000133"/>
-</kw>
-<kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:51.343498" level="INFO">${bairro_random} = Dnrtajrc</msg>
-<var>${bairro_random}</var>
-<arg>${bairro_random_raw}</arg>
-<doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343409" elapsed="0.000104"/>
-</kw>
-<kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:51.343694" level="INFO">${rua_random_raw} = pnykhtlugisk</msg>
-<var>${rua_random_raw}</var>
-<arg>length=12</arg>
-<arg>chars=[LOWER]</arg>
-<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343567" elapsed="0.000145"/>
-</kw>
-<kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:51.343871" level="INFO">${rua_random} = Pnykhtlugisk</msg>
-<var>${rua_random}</var>
-<arg>${rua_random_raw}</arg>
-<doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343778" elapsed="0.000108"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.344058" level="INFO">${complemento_numero} = 274</msg>
-<var>${complemento_numero}</var>
-<arg>random.randint(1, 500)</arg>
-<arg>modules=random</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.343945" elapsed="0.000128"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.344216" level="INFO">${complemento_random} = Apt 274</msg>
-<var>${complemento_random}</var>
-<arg>Apt ${complemento_numero}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.344134" elapsed="0.000096"/>
-</kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.344877" level="INFO">${body} = {'corporateName': 'Empresa Valcqq', 'registerCompany': '12345678000199', 'mail': 'testvalcqq@teste.com', 'matriz': 'Matriz Valcqq', 'responsibleContact': 'Valcqq Dhuugkwm', 'telephone': '5511239569543...</msg>
-<var>${body}</var>
-<arg>corporateName=Empresa ${nome1}</arg>
-<arg>registerCompany=12345678000199</arg>
-<arg>mail=test${nome1.lower()}@teste.com</arg>
-<arg>matriz=Matriz ${nome1}</arg>
-<arg>responsibleContact=${responsavel}</arg>
-<arg>telephone=${telefone_random}</arg>
-<arg>serviceDescription=Serviço de ${nome1}</arg>
-<arg>address=@{EMPTY}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.344287" elapsed="0.000611"/>
-</kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.345289" level="INFO">${endereco} = {'zipCode': '01001000', 'city': 'São Paulo', 'state': 'SP', 'district': 'Dnrtajrc', 'street': 'Pnykhtlugisk', 'number': 2604, 'complement': 'Apt 274', 'country': 'Brasil'}</msg>
-<var>${endereco}</var>
-<arg>zipCode=${cep_random}</arg>
-<arg>city=${cidade_random}</arg>
-<arg>state=${estado_random}</arg>
-<arg>district=${bairro_random}</arg>
-<arg>street=${rua_random}</arg>
-<arg>number=${numero_random}</arg>
-<arg>complement=${complemento_random}</arg>
-<arg>country=Brasil</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.344979" elapsed="0.000330"/>
-</kw>
-<kw name="Append To List" owner="Collections">
-<arg>${body["address"]}</arg>
-<arg>${endereco}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.345391" elapsed="0.000297"/>
-</kw>
-<return>
-<value>${body}</value>
-<status status="PASS" start="2025-08-12T21:10:51.345797" elapsed="0.000034"/>
-</return>
-<msg time="2025-08-12T21:10:51.345931" level="INFO">${body} = {'corporateName': 'Empresa Valcqq', 'registerCompany': '12345678000199', 'mail': 'testvalcqq@teste.com', 'matriz': 'Matriz Valcqq', 'responsibleContact': 'Valcqq Dhuugkwm', 'telephone': '5511239569543...</msg>
-<var>${body}</var>
-<status status="PASS" start="2025-08-12T21:10:51.339901" elapsed="0.006047"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:51.458736" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/company 
- path_url=/api/company 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDIsImV4cCI6MTc1NTEzMDI0Mn0.YV6_uqdIVWPr-Uk-C6sQ6grXTI1htt7_QXDu1UPh_TE', 'Content-Length': '441'} 
- body=b'{"corporateName": "Empresa Valcqq", "registerCompany": "12345678000199", "mail": "testvalcqq@teste.com", "matriz": "Matriz Valcqq", "responsibleContact": "Valcqq Dhuugkwm", "telephone": "5511239569543", "serviceDescription": "Servi\\u00e7o de Valcqq", "address": [{"zipCode": "01001000", "city": "S\\u00e3o Paulo", "state": "SP", "district": "Dnrtajrc", "street": "Pnykhtlugisk", "number": 2604, "complement": "Apt 274", "country": "Brasil"}]}' 
- </msg>
-<msg time="2025-08-12T21:10:51.458821" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/company 
- status=201, reason=Created 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '760', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:43 GMT', 'Etag': 'W/"2f8-i0QmPLmUyr5joOBQR8/yRz8tP6w"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá a companhia true foi cadastrada com sucesso.","newCompany":{"corporateName":"Empresa Valcqq","registerCompany":"12345678000199","responsibleContact":"Valcqq Dhuugkwm","mail":"testvalcqq@teste.com","telephone":"5511239569543","serviceDescription":"Serviço de Valcqq","matriz":"Matriz Valcqq","status":true,"address":[{"country":"Brasil","zipCode":"01001000","city":"São Paulo","state":"SP","district":"Dnrtajrc","street":"Pnykhtlugisk","number":"2604","complement":"Apt 274","_id":"689bd803e56b350eb670566e"}],"audit":[{"registrationDate":"terça-feira, 12/08/2025, 21:10:43 BRT","registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"_id":"689bd803e56b350eb670566f"}],"_id":"689bd803e56b350eb670566d","__v":0}} 
- </msg>
-<msg time="2025-08-12T21:10:51.458941" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
-<var>${resposta}</var>
-<arg>alias=develop</arg>
-<arg>url=/company</arg>
-<arg>json=${body}</arg>
-<arg>expected_status=201</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.346015" elapsed="0.112945"/>
-</kw>
-<kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.459679" level="INFO">${Company_ID} = 689bd803e56b350eb670566d</msg>
-<arg>${Company_ID}</arg>
-<arg>${resposta.json()["newCompany"]["_id"]}</arg>
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.459104" elapsed="0.000612"/>
-</kw>
-<return>
-<value>${Company_ID}</value>
-<status status="PASS" start="2025-08-12T21:10:51.459764" elapsed="0.000034"/>
-</return>
-<status status="PASS" start="2025-08-12T21:10:50.434478" elapsed="1.025390"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.460485" level="INFO">Company criada com ID: 689bd803e56b350eb670566d</msg>
-<arg>Company criada com ID: ${Company_ID}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.460350" elapsed="0.000179"/>
-</kw>
-<kw name="Should Not Be Empty" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.460981" level="INFO">Length is 24.</msg>
-<arg>${Company_ID}</arg>
-<doc>Verifies that the given item is not empty.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.460865" elapsed="0.000147"/>
-</kw>
-<status status="PASS" start="2025-08-12T21:10:50.433670" elapsed="1.027603"/>
-</test>
-<test id="s1-t2" name="Listar Todas Companies" line="12">
+<robot generator="Robot 7.3.2 (Python 3.13.5 on win32)" generated="2025-08-15T19:50:11.547134" rpa="false" schemaversion="5">
+<suite id="s1" name="Get.Company Test" source="C:\Users\aline\invictus-academyt14-api-robot\tests\company\get.company_test.robot">
+<test id="s1-t1" name="Listar Todas Companies" line="8">
 <kw name="Listar Todas Companies" owner="company">
 <kw name="Login com sysadmin" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.463598" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
+<msg time="2025-08-15T19:50:12.262908" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
 <var>${body}</var>
 <arg>mail=sysadmin@qacoders.com</arg>
 <arg>password=1234@Test</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.463450" elapsed="0.000171"/>
+<status status="PASS" start="2025-08-15T19:50:12.262697" elapsed="0.000243"/>
 </kw>
 <kw name="Criar Sessão" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:51.463965" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<msg time="2025-08-15T19:50:12.263374" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.463859" elapsed="0.000125"/>
+<status status="PASS" start="2025-08-15T19:50:12.263251" elapsed="0.000144"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:51.464227" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:12.263658" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:51.464058" elapsed="0.000299"/>
+<status status="PASS" start="2025-08-15T19:50:12.263476" elapsed="0.000325"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:51.463718" elapsed="0.000707"/>
+<status status="PASS" start="2025-08-15T19:50:12.263060" elapsed="0.000797"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:52.235695" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:12.997777" level="INFO">POST Request : url=https://api-shogun.qacoders.dev.br/api/login 
  path_url=/api/login 
  headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
  body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
  </msg>
-<msg time="2025-08-12T21:10:52.235877" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:12.998010" level="INFO">POST Response : url=https://api-shogun.qacoders.dev.br/api/login 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:43 GMT', 'Etag': 'W/"536-4H+LcgOU4YCCq5fWvdhq1yUeofo"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6888ecda6d0acf13553c9eec","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LgD0Z/OD9TL6XFx2gPEpq.S6JTP1EDgaT/I5LIo7VeMWOqtzQJh2K","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 29/07/2025, 12:46:34 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6888ecda6d0acf13553c9eed"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDMsImV4cCI6MTc1NTEzMDI0M30.vwi9FPRanjktBkFLW6VYVub9YXfoQcibHCzkCVSKUTg"} 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1322', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:03 GMT', 'Etag': 'W/"52a-ST3RdxVMo/YIU5pqhjxkS8lndRQ"', 'X-Powered-By': 'Express'} 
+ body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6886c3bb2b4b1a0ca46395e6","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$SxdyqSwUVCQXc52P8Y/DteUXO5VKH7RpZvF1tHVvOv1vFQewzAdMy","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"domingo, 27/07/2025, 21:26:35 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6886c3bb2b4b1a0ca46395e7"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjAzLCJleHAiOjE3NTUzODQ2MDN9.TZDovYpsLH6XBYBaChcnuKGkpgauIB5F29HpIg4K0s0"} 
  </msg>
-<msg time="2025-08-12T21:10:52.236319" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T19:50:12.998240" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/login</arg>
 <arg>json=${body}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:51.464510" elapsed="0.771869"/>
+<status status="PASS" start="2025-08-15T19:50:12.263923" elapsed="0.734363"/>
 </kw>
 <kw name="Status Should Be" owner="RequestsLibrary">
 <arg>200</arg>
 <arg>${resposta}</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.236682" elapsed="0.000345"/>
+<status status="PASS" start="2025-08-15T19:50:12.998533" elapsed="0.000238"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:52.237937" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:12.999575" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <arg>${TOKEN}</arg>
 <arg>${resposta.json()["token"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.237241" elapsed="0.000761"/>
+<status status="PASS" start="2025-08-15T19:50:12.998872" elapsed="0.000755"/>
 </kw>
 <return>
 <value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-12T21:10:52.238089" elapsed="0.000064"/>
+<status status="PASS" start="2025-08-15T19:50:12.999701" elapsed="0.000071"/>
 </return>
-<msg time="2025-08-12T21:10:52.238652" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:13.000077" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <var>${TOKEN}</var>
-<status status="PASS" start="2025-08-12T21:10:51.463294" elapsed="0.775394"/>
+<status status="PASS" start="2025-08-15T19:50:12.262134" elapsed="0.737966"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:52.239069" level="INFO">${headers} = {'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYW...</msg>
+<msg time="2025-08-15T19:50:13.000356" level="INFO">${headers} = {'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYW...</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Authorization=${TOKEN}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.238829" elapsed="0.000270"/>
+<status status="PASS" start="2025-08-15T19:50:13.000193" elapsed="0.000182"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:52.239437" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDMsImV4cCI6MTc1NTEzMDI0M30.vwi9FPRanjktBkFLW6VYVub9YXfoQcibHCzkCVSKUTg'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:13.000612" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjAzLCJleHAiOjE3NTUzODQ2MDN9.TZDovYpsLH6XBYBaChcnuKGkpgauIB5F29HpIg4K0s0'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:52.239219" elapsed="0.000357"/>
+<status status="PASS" start="2025-08-15T19:50:13.000453" elapsed="0.000276"/>
 </kw>
 <kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:52.340678" level="INFO">GET Request : url=https://api-supernatural.qacoders.dev.br/api/company 
+<msg time="2025-08-15T19:50:13.100507" level="INFO">GET Request : url=https://api-shogun.qacoders.dev.br/api/company 
  path_url=/api/company 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDMsImV4cCI6MTc1NTEzMDI0M30.vwi9FPRanjktBkFLW6VYVub9YXfoQcibHCzkCVSKUTg'} 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjAzLCJleHAiOjE3NTUzODQ2MDN9.TZDovYpsLH6XBYBaChcnuKGkpgauIB5F29HpIg4K0s0'} 
  body=None 
  </msg>
-<msg time="2025-08-12T21:10:52.340821" level="INFO">GET Response : url=https://api-supernatural.qacoders.dev.br/api/company 
+<msg time="2025-08-15T19:50:13.100914" level="INFO">GET Response : url=https://api-shogun.qacoders.dev.br/api/company 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '7776', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:43 GMT', 'Etag': 'W/"1e60-EDpdwKnR1Vz4C0uVVCUi4qUk9rA"', 'X-Powered-By': 'Express'} 
- body=[{"_id":"6890bff0e56b350eb66f076d","corporateName":"João Dias company","registerCompany":"26752494529696","responsibleContact":"João Dias","mail":"joaodiascompany@company.com.br","telephone":"5561984276767","serviceDescription":"Monitoramento","matriz":"Segurança Cibernética","status":true,"address":[{"country":"Brasil","zipCode":"04777002","city":"Uberlândia","state":"MG","district":"Rua das Flores","street":"Avenida Interlagos","number":"1234567881","complement":"de 4503 ao fim - lado ímpar","_id":"6890bff0e56b350eb66f076e"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 04/08/2025, 11:13:04 BRT","_id":"6890bff0e56b350eb66f076f"}],"__v":0},{"_id":"6890f169e56b350eb66f085b","corporateName":"Rafael Monteiro company","registerCompany":"06699063246334","responsibleContact":"Rafael Monteiro","mail":"rafaelmonteirocompany@company.com.br","telephone":"5561984276767","serviceDescription":"Consultoria","matriz":"Fintech Solutions","status":true,"address":[{"country":"Brasil","zipCode":"04777002","city":"Campinas","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"1234567881","complement":"de 4503 ao fim - lado ímpar","_id":"6890f169e56b350eb66f085c"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 04/08/2025, 14:44:09 BRT","_id":"6890f169e56b350eb66f085d"}],"__v":0},{"_id":"68913dc7e56b350eb66f13b6","corporateName":"Empresa Teste 6450","registerCompany":"46620015000100","responsibleContact":"Felipe Lopes","mail":"empresa9454@gmail.com","telephone":"5586955584034","serviceDescription":"Teste automático","matriz":"2599","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"1021548796","complement":"de 4503 ao fim - lado ímpar","_id":"68913dc7e56b350eb66f13b7"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 04/08/2025, 20:09:59 BRT","_id":"68913dc7e56b350eb66f13b8"}],"__v":0},{"_id":"68913ea2e56b350eb66f156d","corporateName":"Empresa Teste 8943","registerCompany":"88577741000100","responsibleContact":"Juliana Santos","mail":"empresa1416@gmail.com","telephone":"5593921293446","serviceDescription":"Teste automático","matriz":"2762","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"1021548796","complement":"de 4503 ao fim - lado ímpar","_id":"68913ea2e56b350eb66f156e"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 04/08/2025, 20:13:38 BRT","_id":"68913ea2e56b350eb66f156f"}],"__v":0},{"_id":"689bcaace56b350eb6704e93","corporateName":"Empresa AevzpqHv","registerCompany":"12345678000199","responsibleContact":"CstqDI YzVDhvHX","mail":"testaevzpqhv@teste.com","telephone":"5511700008743","serviceDescription":"Serviço de AevzpqHv","matriz":"Matriz AevzpqHv","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Centro","street":"Rua Teste","number":"7361","complement":"Apto 101","_id":"689bcaace56b350eb6704e94"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:13:48 BRT","_id":"689bcaace56b350eb6704e95"}],"__v":0},{"_id":"689bcc36e56b350eb6705354","corporateName":"Empresa oLkmnQMv","registerCompany":"12345678000199","responsibleContact":"IQLEFB RPRLvGzv","mail":"testolkmnqmv@teste.com","telephone":"5511130459305","serviceDescription":"Serviço de oLkmnQMv","matriz":"Matriz oLkmnQMv","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"Rio de Janeiro","state":"RJ","district":"cBDNIzkl","street":"QekSBKHDXLAM","number":"7431","complement":"Apt 455","_id":"689bcc36e56b350eb6705355"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:20:22 BRT","_id":"689bcc36e56b350eb6705356"}],"__v":0},{"_id":"689bcfc0e56b350eb6705426","corporateName":"Empresa Mfjdip","registerCompany":"12345678000199","responsibleContact":"Mfjdip Brbadwyo","mail":"testmfjdip@teste.com","telephone":"5511890958582","serviceDescription":"Serviço de Mfjdip","matriz":"Matriz Mfjdip","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"Rio de Janeiro","state":"PR","district":"Xvuiqekk","street":"Axpesccnlnuk","number":"8415","complement":"Apt 183","_id":"689bcfc0e56b350eb6705427"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:35:28 BRT","_id":"689bcfc0e56b350eb6705428"}],"__v":0},{"_id":"689bcfc2e56b350eb670543e","corporateName":"Empresa Vstsmv","registerCompany":"12345678000199","responsibleContact":"Vstsmv Zpiyloov","mail":"testvstsmv@teste.com","telephone":"5511401018348","serviceDescription":"Serviço de Vstsmv","matriz":"Matriz Vstsmv","status":true,"address":[{"country":"Brasil","zipCode":"01001000","city":"Rio de Janeiro","state":"SP","district":"Fqsoeors","street":"Lxhlvtlsvozi","number":"2488","complement":"Apt 361","_id":"689bcfc2e56b350eb670543f"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:35:30 BRT","_id":"689bcfc2e56b350eb6705440"}],"__v":0},{"_id":"689bd0f9e56b350eb6705447","corporateName":"Empresa Urhxqy","registerCompany":"12345678000199","responsibleContact":"Urhxqy Bxniqekf","mail":"testurhxqy@teste.com","telephone":"5511752683488","serviceDescription":"Serviço de Urhxqy","matriz":"Matriz Urhxqy","status":true,"address":[{"country":"Brasil","zipCode":"01001000","city":"Curitiba","state":"SP","district":"Cxdsvlsa","street":"Uvpiedmypsdb","number":"4947","complement":"Apt 212","_id":"689bd0f9e56b350eb6705448"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:40:41 BRT","_id":"689bd0f9e56b350eb6705449"}],"__v":0},{"_id":"689bd0fbe56b350eb6705463","corporateName":"Empresa Zagyxp","registerCompany":"12345678000199","responsibleContact":"Zagyxp Ecdqqhap","mail":"testzagyxp@teste.com","telephone":"5511926852359","serviceDescription":"Serviço de Zagyxp","matriz":"Matriz Zagyxp","status":true,"address":[{"country":"Brasil","zipCode":"12345678","city":"Rio de Janeiro","state":"SP","district":"Engbntzu","street":"Zvtqgczkqlme","number":"8436","complement":"Apt 345","_id":"689bd0fbe56b350eb6705464"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 20:40:43 BRT","_id":"689bd0fbe56b350eb6705465"}],"__v":0},{"_id":"689bd803e56b350eb670566d","corporateName":"Empresa Valcqq","registerCompany":"12345678000199","responsibleContact":"Valcqq Dhuugkwm","mail":"testvalcqq@teste.com","telephone":"5511239569543","serviceDescription":"Serviço de Valcqq","matriz":"Matriz Valcqq","status":true,"address":[{"country":"Brasil","zipCode":"01001000","city":"São Paulo","state":"SP","district":"Dnrtajrc","street":"Pnykhtlugisk","number":"2604","complement":"Apt 274","_id":"689bd803e56b350eb670566e"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 21:10:43 BRT","_id":"689bd803e56b350eb670566f"}],"__v":0}] 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '10314', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:03 GMT', 'Etag': 'W/"284a-SrkXgqVcI8IbWOayvFG/njGHTCM"', 'X-Powered-By': 'Express'} 
+ body=[{"_id":"6883ca90683f9003ba20473f","corporateName":"Aviamentos Lima","registerCompany":"31656967000150","responsibleContact":"Aviamentos Lima","mail":"aviamentoslima@empresa.com.br","telephone":"01175971550002","serviceDescription":"Testes","matriz":"Aviamentos Lima LTDA","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"2234567882","complement":"","_id":"6883f596683f9003ba204763"}],"audit":[{"registeredBy":{"userId":"687e9130824cbe8ca3f48903","userLogin":"sysadmin@qacoders.com"},"registrationDate":"sexta-feira, 25/07/2025, 15:18:56 BRT","_id":"6883ca90683f9003ba204741"}],"__v":0},{"_id":"6883ce7a683f9003ba204744","corporateName":"Empresa Dolar","registerCompany":"12020456000155","responsibleContact":"Marcio Souza","mail":"teste@test.com","telephone":"99999999999999","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"50","complement":"de 4503 ao fim - lado ímpar","_id":"6883ce7a683f9003ba204745"}],"audit":[{"registeredBy":{"userId":"687e9130824cbe8ca3f48903","userLogin":"sysadmin@qacoders.com"},"registrationDate":"sexta-feira, 25/07/2025, 15:35:38 BRT","_id":"6883ce7a683f9003ba204746"}],"__v":0},{"_id":"6883cfed683f9003ba20474c","corporateName":"Empresa Dolares","registerCompany":"12020450000155","responsibleContact":"Marcio Souza","mail":"teste@test.com","telephone":"99999999999999","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"50","complement":"de 4503 ao fim - lado ímpar","_id":"6883cfed683f9003ba20474d"}],"audit":[{"registeredBy":{"userId":"687e9130824cbe8ca3f48903","userLogin":"sysadmin@qacoders.com"},"registrationDate":"sexta-feira, 25/07/2025, 15:41:49 BRT","_id":"6883cfed683f9003ba20474e"}],"__v":0},{"_id":"688a30f6683f9003ba204c10","corporateName":"Aco Nunes","registerCompany":"85618713000176","responsibleContact":"Aco Nunes","mail":"aconunes@empresa.com.br","telephone":"01175971550002","serviceDescription":"Testes","matriz":"Aco Nunes LTDA","status":false,"address":[{"country":"Brasil","zipCode":"04777001","city":"Fortaleza","state":"CE","district":"Rua Coqueiros","street":"Avenida Mar","number":"223","complement":"Casa","_id":"688a3136683f9003ba204c17"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"quarta-feira, 30/07/2025, 11:49:26 BRT","_id":"688a30f6683f9003ba204c12"}],"__v":0},{"_id":"688a9dc3d477c7609b3a338e","corporateName":"Pequi de Goiás","registerCompany":"12169456000168","responsibleContact":"Marcio Marcos","mail":"test@teste6.com","telephone":"99999999999994","serviceDescription":"Teste","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"04777007","city":"São Paulo","state":"SP","district":"Rua Flores","street":"Avenida Interlagos","number":"5030708091","complement":"de 4503 ao fim - lado ímpar","_id":"688a9e08d477c7609b3a33a2"}],"audit":[{"registeredBy":{"userId":"688a9d8bd477c7609b3a3386","userLogin":"marcos@teste.com.br"},"registrationDate":"quarta-feira, 30/07/2025, 19:33:39 BRT","_id":"688a9dc3d477c7609b3a3390"},{"updatedBy":{"userId":"688a9d8bd477c7609b3a3386","userLogin":"marcos@teste.com.br"},"updateDate":"quarta-feira, 30/07/2025, 19:34:26 BRT","_id":"688a9df2d477c7609b3a3399"}],"__v":0},{"_id":"689298bfd477c7609b3a4798","corporateName":"Alfa Soluções ME","registerCompany":"23365750000162","responsibleContact":"João Souza","mail":"alfasolucoesme1933@empresa.com.br","telephone":"5561971317858","serviceDescription":"Desenvolvimento de Software","matriz":"Matriz 80","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Moema","street":"Rua Dom Pedro II","number":"1234567890","complement":"Complemento 83","_id":"689298bfd477c7609b3a4799"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 05/08/2025, 20:50:23 BRT","_id":"689298bfd477c7609b3a479a"}],"__v":0},{"_id":"68929afad477c7609b3a484c","corporateName":"Teste do Teste","registerCompany":"12126456000155","responsibleContact":"Marcio Santos","mail":"test@test.com","telephone":"88984225648252","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"1234567890","complement":"de 4503 ao fim - lado ímpar","_id":"68929afad477c7609b3a484d"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 05/08/2025, 20:59:54 BRT","_id":"68929afad477c7609b3a484e"}],"__v":0},{"_id":"68929b81d477c7609b3a4856","corporateName":"QACorp LTDA","registerCompany":"36889016000144","responsibleContact":"Carlos Silva","mail":"qacorpltda5958@empresa.com.br","telephone":"5521991272218","serviceDescription":"Desenvolvimento de Software","matriz":"Matriz 89","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Moema","street":"Rua das Acácias","number":"1234567890","complement":"Complemento 94","_id":"68929b81d477c7609b3a4857"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 05/08/2025, 21:02:09 BRT","_id":"68929b81d477c7609b3a4858"}],"__v":0},{"_id":"6893866e683f9003ba206410","corporateName":"Teste Put","registerCompany":"12126456000155","responsibleContact":"Marcio Put","mail":"test@testput.com","telephone":"99999999999999","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Inexistente","zipCode":"04777001","city":"Fortaleza","state":"CE","district":"Rua Coqueiros","street":"Avenida Mar","number":"223","complement":"Casa","_id":"6894bb66683f9003ba2065fe"}],"audit":[{"registeredBy":{"userId":"685c8391729b60de41cd8cc0","userLogin":"sysadmin@qacoders.com"},"registrationDate":"quarta-feira, 06/08/2025, 13:44:30 BRT","_id":"6893866e683f9003ba206412"},{"updatedBy":{"userId":"685c8391729b60de41cd8cc0","userLogin":"sysadmin@qacoders.com"},"updateDate":"quarta-feira, 06/08/2025, 13:45:16 BRT","_id":"6893869c683f9003ba20641b"}],"__v":0},{"_id":"68953a29683f9003ba206737","corporateName":"Teste Put","registerCompany":"12126456000155","responsibleContact":"Marcio Put","mail":"test@testput.com","telephone":"99999999999999","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"12345678","city":"Fortaleza","state":"CE","district":"Rua Coqueiros","street":"Avenida Mar","number":"223","complement":"Casa","_id":"68953a5a683f9003ba20674b"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"quinta-feira, 07/08/2025, 20:43:37 BRT","_id":"68953a29683f9003ba206739"},{"updatedBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"updateDate":"quinta-feira, 07/08/2025, 20:44:03 BRT","_id":"68953a43683f9003ba206742"}],"__v":0},{"_id":"68953af4683f9003ba206757","corporateName":"Aurora Entretenimento","registerCompany":"20755238000134","responsibleContact":"Juliano Cescon","mail":"sac@aurora.com.br","telephone":"1254789645123","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"12345678","city":"Fortaleza","state":"CE","district":"Rua Coqueiros","street":"Avenida Mar","number":"223","complement":"Casa","_id":"68953b85683f9003ba20675e"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"quinta-feira, 07/08/2025, 20:47:00 BRT","_id":"68953af4683f9003ba206759"}],"__v":0},{"_id":"689a6e8ad477c7609b3a917e","corporateName":"BECANOR","registerCompany":"02030405060403","responsibleContact":"Marcio Atitude","mail":"MERCS@test.com","telephone":"99999999999999","serviceDescription":"Testes","matriz":"Teste","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Rua das Flores","street":"Avenida Interlagos","number":"5555500000","complement":"de 4503 ao fim - lado ímpar","_id":"689a6e8ad477c7609b3a917f"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 11/08/2025, 19:28:26 BRT","_id":"689a6e8ad477c7609b3a9180"}],"__v":0},{"_id":"689a734ed477c7609b3a93fd","corporateName":"Empresa Teste 1754952532.431422","registerCompany":"121754952532.4","responsibleContact":"Marcio Atitude","mail":"empresa1754952532.431422@teste.com","telephone":"5511999999999","serviceDescription":"Empresa de Teste Automatizado","matriz":"Empresa Teste 1754952532.431422","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Jardim Teste","street":"Rua dos Testes","number":"5555500000","complement":"Bloco A - Sala 1","_id":"689a734ed477c7609b3a93fe"}],"audit":[{"registeredBy":{"userId":"6886c3bb2b4b1a0ca46395e6","userLogin":"sysadmin@qacoders.com"},"registrationDate":"segunda-feira, 11/08/2025, 19:48:46 BRT","_id":"689a734ed477c7609b3a93ff"}],"__v":0},{"_id":"689b6b29d477c7609b3aac9b","corporateName":"Empresa Teste 1755015985.72797","registerCompany":"121755015985.7","responsibleContact":"Marcio Atitude","mail":"empresa1755015985.72797@teste.com","telephone":"5511999999999","serviceDescription":"Empresa de Teste Automatizado","matriz":"Empresa Teste 1755015985.72797","status":true,"address":[{"country":"Brasil","zipCode":"04777001","city":"São Paulo","state":"SP","district":"Jardim Teste","street":"Rua dos Testes","... (set the log level to DEBUG or TRACE to see the full content) 
  </msg>
-<msg time="2025-08-12T21:10:52.341215" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T19:50:13.101205" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/company</arg>
 <arg>expected_status=200</arg>
 <doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.239677" elapsed="0.101578"/>
+<status status="PASS" start="2025-08-15T19:50:13.000813" elapsed="0.100417"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-08-12T21:10:52.342293" level="INFO">[{'_id': '6890bff0e56b350eb66f076d', 'corporateName': 'João Dias company', 'registerCompany': '26752494529696', 'responsibleContact': 'João Dias', 'mail': 'joaodiascompany@company.com.br', 'telephone': '5561984276767', 'serviceDescription': 'Monitoramento', 'matriz': 'Segurança Cibernética', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777002', 'city': 'Uberlândia', 'state': 'MG', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '1234567881', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '6890bff0e56b350eb66f076e'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 04/08/2025, 11:13:04 BRT', '_id': '6890bff0e56b350eb66f076f'}], '__v': 0}, {'_id': '6890f169e56b350eb66f085b', 'corporateName': 'Rafael Monteiro company', 'registerCompany': '06699063246334', 'responsibleContact': 'Rafael Monteiro', 'mail': 'rafaelmonteirocompany@company.com.br', 'telephone': '5561984276767', 'serviceDescription': 'Consultoria', 'matriz': 'Fintech Solutions', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777002', 'city': 'Campinas', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '1234567881', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '6890f169e56b350eb66f085c'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 04/08/2025, 14:44:09 BRT', '_id': '6890f169e56b350eb66f085d'}], '__v': 0}, {'_id': '68913dc7e56b350eb66f13b6', 'corporateName': 'Empresa Teste 6450', 'registerCompany': '46620015000100', 'responsibleContact': 'Felipe Lopes', 'mail': 'empresa9454@gmail.com', 'telephone': '5586955584034', 'serviceDescription': 'Teste automático', 'matriz': '2599', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '1021548796', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '68913dc7e56b350eb66f13b7'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 04/08/2025, 20:09:59 BRT', '_id': '68913dc7e56b350eb66f13b8'}], '__v': 0}, {'_id': '68913ea2e56b350eb66f156d', 'corporateName': 'Empresa Teste 8943', 'registerCompany': '88577741000100', 'responsibleContact': 'Juliana Santos', 'mail': 'empresa1416@gmail.com', 'telephone': '5593921293446', 'serviceDescription': 'Teste automático', 'matriz': '2762', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '1021548796', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '68913ea2e56b350eb66f156e'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 04/08/2025, 20:13:38 BRT', '_id': '68913ea2e56b350eb66f156f'}], '__v': 0}, {'_id': '689bcaace56b350eb6704e93', 'corporateName': 'Empresa AevzpqHv', 'registerCompany': '12345678000199', 'responsibleContact': 'CstqDI YzVDhvHX', 'mail': 'testaevzpqhv@teste.com', 'telephone': '5511700008743', 'serviceDescription': 'Serviço de AevzpqHv', 'matriz': 'Matriz AevzpqHv', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Centro', 'street': 'Rua Teste', 'number': '7361', 'complement': 'Apto 101', '_id': '689bcaace56b350eb6704e94'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:13:48 BRT', '_id': '689bcaace56b350eb6704e95'}], '__v': 0}, {'_id': '689bcc36e56b350eb6705354', 'corporateName': 'Empresa oLkmnQMv', 'registerCompany': '12345678000199', 'responsibleContact': 'IQLEFB RPRLvGzv', 'mail': 'testolkmnqmv@teste.com', 'telephone': '5511130459305', 'serviceDescription': 'Serviço de oLkmnQMv', 'matriz': 'Matriz oLkmnQMv', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'Rio de Janeiro', 'state': 'RJ', 'district': 'cBDNIzkl', 'street': 'QekSBKHDXLAM', 'number': '7431', 'complement': 'Apt 455', '_id': '689bcc36e56b350eb6705355'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:20:22 BRT', '_id': '689bcc36e56b350eb6705356'}], '__v': 0}, {'_id': '689bcfc0e56b350eb6705426', 'corporateName': 'Empresa Mfjdip', 'registerCompany': '12345678000199', 'responsibleContact': 'Mfjdip Brbadwyo', 'mail': 'testmfjdip@teste.com', 'telephone': '5511890958582', 'serviceDescription': 'Serviço de Mfjdip', 'matriz': 'Matriz Mfjdip', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'Rio de Janeiro', 'state': 'PR', 'district': 'Xvuiqekk', 'street': 'Axpesccnlnuk', 'number': '8415', 'complement': 'Apt 183', '_id': '689bcfc0e56b350eb6705427'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:35:28 BRT', '_id': '689bcfc0e56b350eb6705428'}], '__v': 0}, {'_id': '689bcfc2e56b350eb670543e', 'corporateName': 'Empresa Vstsmv', 'registerCompany': '12345678000199', 'responsibleContact': 'Vstsmv Zpiyloov', 'mail': 'testvstsmv@teste.com', 'telephone': '5511401018348', 'serviceDescription': 'Serviço de Vstsmv', 'matriz': 'Matriz Vstsmv', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '01001000', 'city': 'Rio de Janeiro', 'state': 'SP', 'district': 'Fqsoeors', 'street': 'Lxhlvtlsvozi', 'number': '2488', 'complement': 'Apt 361', '_id': '689bcfc2e56b350eb670543f'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:35:30 BRT', '_id': '689bcfc2e56b350eb6705440'}], '__v': 0}, {'_id': '689bd0f9e56b350eb6705447', 'corporateName': 'Empresa Urhxqy', 'registerCompany': '12345678000199', 'responsibleContact': 'Urhxqy Bxniqekf', 'mail': 'testurhxqy@teste.com', 'telephone': '5511752683488', 'serviceDescription': 'Serviço de Urhxqy', 'matriz': 'Matriz Urhxqy', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '01001000', 'city': 'Curitiba', 'state': 'SP', 'district': 'Cxdsvlsa', 'street': 'Uvpiedmypsdb', 'number': '4947', 'complement': 'Apt 212', '_id': '689bd0f9e56b350eb6705448'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:40:41 BRT', '_id': '689bd0f9e56b350eb6705449'}], '__v': 0}, {'_id': '689bd0fbe56b350eb6705463', 'corporateName': 'Empresa Zagyxp', 'registerCompany': '12345678000199', 'responsibleContact': 'Zagyxp Ecdqqhap', 'mail': 'testzagyxp@teste.com', 'telephone': '5511926852359', 'serviceDescription': 'Serviço de Zagyxp', 'matriz': 'Matriz Zagyxp', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '12345678', 'city': 'Rio de Janeiro', 'state': 'SP', 'district': 'Engbntzu', 'street': 'Zvtqgczkqlme', 'number': '8436', 'complement': 'Apt 345', '_id': '689bd0fbe56b350eb6705464'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 20:40:43 BRT', '_id': '689bd0fbe56b350eb6705465'}], '__v': 0}, {'_id': '689bd803e56b350eb670566d', 'corporateName': 'Empresa Valcqq', 'registerCompany': '12345678000199', 'responsibleContact': 'Valcqq Dhuugkwm', 'mail': 'testvalcqq@teste.com', 'telephone': '5511239569543', 'serviceDescription': 'Serviço de Valcqq', 'matriz': 'Matriz Valcqq', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '01001000', 'city': 'São Paulo', 'state': 'SP', 'district': 'Dnrtajrc', 'street': 'Pnykhtlugisk', 'number': '2604', 'complement': 'Apt 274', '_id': '689bd803e56b350eb670566e'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 21:10:43 BRT', '_id': '689bd803e56b350eb670566f'}], '__v': 0}]</msg>
+<msg time="2025-08-15T19:50:13.102071" level="INFO">[{'_id': '6883ca90683f9003ba20473f', 'corporateName': 'Aviamentos Lima', 'registerCompany': '31656967000150', 'responsibleContact': 'Aviamentos Lima', 'mail': 'aviamentoslima@empresa.com.br', 'telephone': '01175971550002', 'serviceDescription': 'Testes', 'matriz': 'Aviamentos Lima LTDA', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '2234567882', 'complement': '', '_id': '6883f596683f9003ba204763'}], 'audit': [{'registeredBy': {'userId': '687e9130824cbe8ca3f48903', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'sexta-feira, 25/07/2025, 15:18:56 BRT', '_id': '6883ca90683f9003ba204741'}], '__v': 0}, {'_id': '6883ce7a683f9003ba204744', 'corporateName': 'Empresa Dolar', 'registerCompany': '12020456000155', 'responsibleContact': 'Marcio Souza', 'mail': 'teste@test.com', 'telephone': '99999999999999', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '50', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '6883ce7a683f9003ba204745'}], 'audit': [{'registeredBy': {'userId': '687e9130824cbe8ca3f48903', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'sexta-feira, 25/07/2025, 15:35:38 BRT', '_id': '6883ce7a683f9003ba204746'}], '__v': 0}, {'_id': '6883cfed683f9003ba20474c', 'corporateName': 'Empresa Dolares', 'registerCompany': '12020450000155', 'responsibleContact': 'Marcio Souza', 'mail': 'teste@test.com', 'telephone': '99999999999999', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '50', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '6883cfed683f9003ba20474d'}], 'audit': [{'registeredBy': {'userId': '687e9130824cbe8ca3f48903', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'sexta-feira, 25/07/2025, 15:41:49 BRT', '_id': '6883cfed683f9003ba20474e'}], '__v': 0}, {'_id': '688a30f6683f9003ba204c10', 'corporateName': 'Aco Nunes', 'registerCompany': '85618713000176', 'responsibleContact': 'Aco Nunes', 'mail': 'aconunes@empresa.com.br', 'telephone': '01175971550002', 'serviceDescription': 'Testes', 'matriz': 'Aco Nunes LTDA', 'status': False, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'Fortaleza', 'state': 'CE', 'district': 'Rua Coqueiros', 'street': 'Avenida Mar', 'number': '223', 'complement': 'Casa', '_id': '688a3136683f9003ba204c17'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'quarta-feira, 30/07/2025, 11:49:26 BRT', '_id': '688a30f6683f9003ba204c12'}], '__v': 0}, {'_id': '688a9dc3d477c7609b3a338e', 'corporateName': 'Pequi de Goiás', 'registerCompany': '12169456000168', 'responsibleContact': 'Marcio Marcos', 'mail': 'test@teste6.com', 'telephone': '99999999999994', 'serviceDescription': 'Teste', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777007', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua Flores', 'street': 'Avenida Interlagos', 'number': '5030708091', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '688a9e08d477c7609b3a33a2'}], 'audit': [{'registeredBy': {'userId': '688a9d8bd477c7609b3a3386', 'userLogin': 'marcos@teste.com.br'}, 'registrationDate': 'quarta-feira, 30/07/2025, 19:33:39 BRT', '_id': '688a9dc3d477c7609b3a3390'}, {'updatedBy': {'userId': '688a9d8bd477c7609b3a3386', 'userLogin': 'marcos@teste.com.br'}, 'updateDate': 'quarta-feira, 30/07/2025, 19:34:26 BRT', '_id': '688a9df2d477c7609b3a3399'}], '__v': 0}, {'_id': '689298bfd477c7609b3a4798', 'corporateName': 'Alfa Soluções ME', 'registerCompany': '23365750000162', 'responsibleContact': 'João Souza', 'mail': 'alfasolucoesme1933@empresa.com.br', 'telephone': '5561971317858', 'serviceDescription': 'Desenvolvimento de Software', 'matriz': 'Matriz 80', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Moema', 'street': 'Rua Dom Pedro II', 'number': '1234567890', 'complement': 'Complemento 83', '_id': '689298bfd477c7609b3a4799'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 05/08/2025, 20:50:23 BRT', '_id': '689298bfd477c7609b3a479a'}], '__v': 0}, {'_id': '68929afad477c7609b3a484c', 'corporateName': 'Teste do Teste', 'registerCompany': '12126456000155', 'responsibleContact': 'Marcio Santos', 'mail': 'test@test.com', 'telephone': '88984225648252', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '1234567890', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '68929afad477c7609b3a484d'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 05/08/2025, 20:59:54 BRT', '_id': '68929afad477c7609b3a484e'}], '__v': 0}, {'_id': '68929b81d477c7609b3a4856', 'corporateName': 'QACorp LTDA', 'registerCompany': '36889016000144', 'responsibleContact': 'Carlos Silva', 'mail': 'qacorpltda5958@empresa.com.br', 'telephone': '5521991272218', 'serviceDescription': 'Desenvolvimento de Software', 'matriz': 'Matriz 89', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Moema', 'street': 'Rua das Acácias', 'number': '1234567890', 'complement': 'Complemento 94', '_id': '68929b81d477c7609b3a4857'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 05/08/2025, 21:02:09 BRT', '_id': '68929b81d477c7609b3a4858'}], '__v': 0}, {'_id': '6893866e683f9003ba206410', 'corporateName': 'Teste Put', 'registerCompany': '12126456000155', 'responsibleContact': 'Marcio Put', 'mail': 'test@testput.com', 'telephone': '99999999999999', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Inexistente', 'zipCode': '04777001', 'city': 'Fortaleza', 'state': 'CE', 'district': 'Rua Coqueiros', 'street': 'Avenida Mar', 'number': '223', 'complement': 'Casa', '_id': '6894bb66683f9003ba2065fe'}], 'audit': [{'registeredBy': {'userId': '685c8391729b60de41cd8cc0', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'quarta-feira, 06/08/2025, 13:44:30 BRT', '_id': '6893866e683f9003ba206412'}, {'updatedBy': {'userId': '685c8391729b60de41cd8cc0', 'userLogin': 'sysadmin@qacoders.com'}, 'updateDate': 'quarta-feira, 06/08/2025, 13:45:16 BRT', '_id': '6893869c683f9003ba20641b'}], '__v': 0}, {'_id': '68953a29683f9003ba206737', 'corporateName': 'Teste Put', 'registerCompany': '12126456000155', 'responsibleContact': 'Marcio Put', 'mail': 'test@testput.com', 'telephone': '99999999999999', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '12345678', 'city': 'Fortaleza', 'state': 'CE', 'district': 'Rua Coqueiros', 'street': 'Avenida Mar', 'number': '223', 'complement': 'Casa', '_id': '68953a5a683f9003ba20674b'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'quinta-feira, 07/08/2025, 20:43:37 BRT', '_id': '68953a29683f9003ba206739'}, {'updatedBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'updateDate': 'quinta-feira, 07/08/2025, 20:44:03 BRT', '_id': '68953a43683f9003ba206742'}], '__v': 0}, {'_id': '68953af4683f9003ba206757', 'corporateName': 'Aurora Entretenimento', 'registerCompany': '20755238000134', 'responsibleContact': 'Juliano Cescon', 'mail': 'sac@aurora.com.br', 'telephone': '1254789645123', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '12345678', 'city': 'Fortaleza', 'state': 'CE', 'district': 'Rua Coqueiros', 'street': 'Avenida Mar', 'number': '223', 'complement': 'Casa', '_id': '68953b85683f9003ba20675e'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'quinta-feira, 07/08/2025, 20:47:00 BRT', '_id': '68953af4683f9003ba206759'}], '__v': 0}, {'_id': '689a6e8ad477c7609b3a917e', 'corporateName': 'BECANOR', 'registerCompany': '02030405060403', 'responsibleContact': 'Marcio Atitude', 'mail': 'MERCS@test.com', 'telephone': '99999999999999', 'serviceDescription': 'Testes', 'matriz': 'Teste', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Rua das Flores', 'street': 'Avenida Interlagos', 'number': '5555500000', 'complement': 'de 4503 ao fim - lado ímpar', '_id': '689a6e8ad477c7609b3a917f'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 11/08/2025, 19:28:26 BRT', '_id': '689a6e8ad477c7609b3a9180'}], '__v': 0}, {'_id': '689a734ed477c7609b3a93fd', 'corporateName': 'Empresa Teste 1754952532.431422', 'registerCompany': '121754952532.4', 'responsibleContact': 'Marcio Atitude', 'mail': 'empresa1754952532.431422@teste.com', 'telephone': '5511999999999', 'serviceDescription': 'Empresa de Teste Automatizado', 'matriz': 'Empresa Teste 1754952532.431422', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Jardim Teste', 'street': 'Rua dos Testes', 'number': '5555500000', 'complement': 'Bloco A - Sala 1', '_id': '689a734ed477c7609b3a93fe'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'segunda-feira, 11/08/2025, 19:48:46 BRT', '_id': '689a734ed477c7609b3a93ff'}], '__v': 0}, {'_id': '689b6b29d477c7609b3aac9b', 'corporateName': 'Empresa Teste 1755015985.72797', 'registerCompany': '121755015985.7', 'responsibleContact': 'Marcio Atitude', 'mail': 'empresa1755015985.72797@teste.com', 'telephone': '5511999999999', 'serviceDescription': 'Empresa de Teste Automatizado', 'matriz': 'Empresa Teste 1755015985.72797', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '04777001', 'city': 'São Paulo', 'state': 'SP', 'district': 'Jardim Teste', 'street': 'Rua dos Testes', 'number': '5555500000', 'complement': 'Bloco A - Sala 1', '_id': '689b6b29d477c7609b3aac9c'}], 'audit': [{'registeredBy': {'userId': '6886c3bb2b4b1a0ca46395e6', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 13:26:17 BRT', '_id': '689b6b29d477c7609b3aac9d'}], '__v': 0}]</msg>
 <arg>${resposta.json()}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.341494" elapsed="0.000951"/>
+<status status="PASS" start="2025-08-15T19:50:13.101403" elapsed="0.000824"/>
 </kw>
 <return>
 <value>${resposta.json()}</value>
-<status status="PASS" start="2025-08-12T21:10:52.342517" elapsed="0.000051"/>
+<status status="PASS" start="2025-08-15T19:50:13.102291" elapsed="0.000052"/>
 </return>
-<status status="PASS" start="2025-08-12T21:10:51.463035" elapsed="0.879974"/>
+<status status="PASS" start="2025-08-15T19:50:12.261818" elapsed="0.840862"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:51.462278" elapsed="0.881345"/>
+<status status="PASS" start="2025-08-15T19:50:12.261169" elapsed="0.841945"/>
 </test>
-<test id="s1-t3" name="Buscar Company por ID" line="15">
+<test id="s1-t2" name="Buscar Company por ID" line="11">
 <kw name="Cadastrar Company com Sucesso" owner="company">
 <kw name="Login com sysadmin" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:52.346175" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
+<msg time="2025-08-15T19:50:13.104967" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
 <var>${body}</var>
 <arg>mail=sysadmin@qacoders.com</arg>
 <arg>password=1234@Test</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.345998" elapsed="0.000208"/>
+<status status="PASS" start="2025-08-15T19:50:13.104715" elapsed="0.000297"/>
 </kw>
 <kw name="Criar Sessão" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:52.346640" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<msg time="2025-08-15T19:50:13.105694" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.346509" elapsed="0.000154"/>
+<status status="PASS" start="2025-08-15T19:50:13.105457" elapsed="0.000272"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:52.346945" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:13.106155" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:52.346753" elapsed="0.000320"/>
+<status status="PASS" start="2025-08-15T19:50:13.105895" elapsed="0.001031"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:52.346338" elapsed="0.000799"/>
+<status status="PASS" start="2025-08-15T19:50:13.105217" elapsed="0.001831"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:53.269986" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:13.898954" level="INFO">POST Request : url=https://api-shogun.qacoders.dev.br/api/login 
  path_url=/api/login 
  headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
  body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
  </msg>
-<msg time="2025-08-12T21:10:53.270137" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:13.899038" level="INFO">POST Response : url=https://api-shogun.qacoders.dev.br/api/login 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:44 GMT', 'Etag': 'W/"536-+ZLzNdJhSbicvPjNQ+lgFYehoD0"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6888ecda6d0acf13553c9eec","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LgD0Z/OD9TL6XFx2gPEpq.S6JTP1EDgaT/I5LIo7VeMWOqtzQJh2K","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 29/07/2025, 12:46:34 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6888ecda6d0acf13553c9eed"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDQsImV4cCI6MTc1NTEzMDI0NH0.n-lz4doueI5wc9PqyzFQCHyUKlyUAia74K0UaXMopTw"} 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1322', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:04 GMT', 'Etag': 'W/"52a-LIetkjLwY2YABwlKrtk55D1Goz4"', 'X-Powered-By': 'Express'} 
+ body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6886c3bb2b4b1a0ca46395e6","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$SxdyqSwUVCQXc52P8Y/DteUXO5VKH7RpZvF1tHVvOv1vFQewzAdMy","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"domingo, 27/07/2025, 21:26:35 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6886c3bb2b4b1a0ca46395e7"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA0LCJleHAiOjE3NTUzODQ2MDR9.wBvDLgZQsRC4BbLfnUNADJvwLLndJSJQk9nmP3u6vh0"} 
  </msg>
-<msg time="2025-08-12T21:10:53.270350" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T19:50:13.899174" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/login</arg>
 <arg>json=${body}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:52.347215" elapsed="0.923176"/>
+<status status="PASS" start="2025-08-15T19:50:13.107161" elapsed="0.792039"/>
 </kw>
 <kw name="Status Should Be" owner="RequestsLibrary">
 <arg>200</arg>
 <arg>${resposta}</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.270634" elapsed="0.000316"/>
+<status status="PASS" start="2025-08-15T19:50:13.899368" elapsed="0.000187"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.271710" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:13.900061" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <arg>${TOKEN}</arg>
 <arg>${resposta.json()["token"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.271119" elapsed="0.000643"/>
+<status status="PASS" start="2025-08-15T19:50:13.899659" elapsed="0.000451"/>
 </kw>
 <return>
 <value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-12T21:10:53.271830" elapsed="0.000050"/>
+<status status="PASS" start="2025-08-15T19:50:13.900186" elapsed="0.000044"/>
 </return>
-<msg time="2025-08-12T21:10:53.272289" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:13.900514" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <var>${TOKEN}</var>
-<status status="PASS" start="2025-08-12T21:10:52.345795" elapsed="0.926526"/>
+<status status="PASS" start="2025-08-15T19:50:13.104488" elapsed="0.796047"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.272649" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWV...</msg>
+<msg time="2025-08-15T19:50:13.900780" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWV...</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <arg>Authorization=${TOKEN}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.272439" elapsed="0.000236"/>
+<status status="PASS" start="2025-08-15T19:50:13.900627" elapsed="0.000172"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:53.272992" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDQsImV4cCI6MTc1NTEzMDI0NH0.n-lz4doueI5wc9PqyzFQCHyUKlyUAia74K0UaXMopTw'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:13.901030" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA0LCJleHAiOjE3NTUzODQ2MDR9.wBvDLgZQsRC4BbLfnUNADJvwLLndJSJQk9nmP3u6vh0'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:53.272793" elapsed="0.000329"/>
+<status status="PASS" start="2025-08-15T19:50:13.900874" elapsed="0.000258"/>
 </kw>
 <kw name="Criar Company" owner="company">
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:53.274565" level="INFO">${nome1_raw} = cgjrmu</msg>
+<msg time="2025-08-15T19:50:13.901719" level="INFO">${nome1_raw} = jxsixg</msg>
 <var>${nome1_raw}</var>
 <arg>length=6</arg>
 <arg>chars=[LOWER]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.274386" elapsed="0.000198"/>
+<status status="PASS" start="2025-08-15T19:50:13.901534" elapsed="0.000205"/>
 </kw>
 <kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:53.274763" level="INFO">${nome1} = Cgjrmu</msg>
+<msg time="2025-08-15T19:50:13.901990" level="INFO">${nome1} = Jxsixg</msg>
 <var>${nome1}</var>
 <arg>${nome1_raw}</arg>
 <doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.274662" elapsed="0.000117"/>
+<status status="PASS" start="2025-08-15T19:50:13.901816" elapsed="0.000193"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:53.275019" level="INFO">${nome2_raw} = ublxodqv</msg>
+<msg time="2025-08-15T19:50:13.902238" level="INFO">${nome2_raw} = qvwemafk</msg>
 <var>${nome2_raw}</var>
 <arg>length=8</arg>
 <arg>chars=[LOWER]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.274841" elapsed="0.000207"/>
+<status status="PASS" start="2025-08-15T19:50:13.902077" elapsed="0.000179"/>
 </kw>
 <kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:53.275218" level="INFO">${nome2} = Ublxodqv</msg>
+<msg time="2025-08-15T19:50:13.902430" level="INFO">${nome2} = Qvwemafk</msg>
 <var>${nome2}</var>
 <arg>${nome2_raw}</arg>
 <doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275120" elapsed="0.000114"/>
+<status status="PASS" start="2025-08-15T19:50:13.902328" elapsed="0.000118"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.275395" level="INFO">${responsavel} = Cgjrmu Ublxodqv</msg>
+<msg time="2025-08-15T19:50:13.902616" level="INFO">${responsavel} = Jxsixg Qvwemafk</msg>
 <var>${responsavel}</var>
 <arg>${nome1} ${nome2}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275296" elapsed="0.000115"/>
+<status status="PASS" start="2025-08-15T19:50:13.902510" elapsed="0.000123"/>
 </kw>
 <kw name="Should Match Regexp" owner="BuiltIn">
 <arg>${responsavel}</arg>
 <arg>^[A-Z][a-z]+ [A-Z][a-z]+$</arg>
 <doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275474" elapsed="0.000083"/>
+<status status="PASS" start="2025-08-15T19:50:13.902699" elapsed="0.000151"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:53.275729" level="INFO">${telefone_aleatorio} = 167260920</msg>
+<msg time="2025-08-15T19:50:13.903053" level="INFO">${telefone_aleatorio} = 121159046</msg>
 <var>${telefone_aleatorio}</var>
 <arg>length=9</arg>
 <arg>chars=[NUMBERS]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275613" elapsed="0.000131"/>
+<status status="PASS" start="2025-08-15T19:50:13.902918" elapsed="0.000152"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.275889" level="INFO">${telefone_random} = 5511167260920</msg>
+<msg time="2025-08-15T19:50:13.903226" level="INFO">${telefone_random} = 5511121159046</msg>
 <var>${telefone_random}</var>
 <arg>5511${telefone_aleatorio}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275808" elapsed="0.000095"/>
+<status status="PASS" start="2025-08-15T19:50:13.903135" elapsed="0.000106"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.276080" level="INFO">${numero_random} = 5274</msg>
+<msg time="2025-08-15T19:50:13.903450" level="INFO">${numero_random} = 6079</msg>
 <var>${numero_random}</var>
 <arg>random.randint(1, 9999)</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.275956" elapsed="0.000138"/>
+<status status="PASS" start="2025-08-15T19:50:13.903305" elapsed="0.000161"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.276258" level="INFO">${cep_random} = 12345678</msg>
+<msg time="2025-08-15T19:50:13.903671" level="INFO">${cep_random} = 12345678</msg>
 <var>${cep_random}</var>
 <arg>random.choice(["04777001", "01001000", "12345678"])</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.276148" elapsed="0.000124"/>
+<status status="PASS" start="2025-08-15T19:50:13.903532" elapsed="0.000158"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.276431" level="INFO">${cidade_random} = Rio de Janeiro</msg>
+<msg time="2025-08-15T19:50:13.903898" level="INFO">${cidade_random} = São Paulo</msg>
 <var>${cidade_random}</var>
 <arg>random.choice(["São Paulo", "Rio de Janeiro", "Curitiba"])</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.276329" elapsed="0.000118"/>
+<status status="PASS" start="2025-08-15T19:50:13.903765" elapsed="0.000151"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.276614" level="INFO">${estado_random} = RJ</msg>
+<msg time="2025-08-15T19:50:13.904109" level="INFO">${estado_random} = SP</msg>
 <var>${estado_random}</var>
 <arg>random.choice(["SP", "RJ", "PR"])</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.276507" elapsed="0.000121"/>
+<status status="PASS" start="2025-08-15T19:50:13.903988" elapsed="0.000137"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:53.276800" level="INFO">${bairro_random_raw} = fyhkpfmj</msg>
+<msg time="2025-08-15T19:50:13.904334" level="INFO">${bairro_random_raw} = mfkksyrv</msg>
 <var>${bairro_random_raw}</var>
 <arg>length=8</arg>
 <arg>chars=[LOWER]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.276685" elapsed="0.000129"/>
+<status status="PASS" start="2025-08-15T19:50:13.904202" elapsed="0.000149"/>
 </kw>
 <kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:53.276956" level="INFO">${bairro_random} = Fyhkpfmj</msg>
+<msg time="2025-08-15T19:50:13.904521" level="INFO">${bairro_random} = Mfkksyrv</msg>
 <var>${bairro_random}</var>
 <arg>${bairro_random_raw}</arg>
 <doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.276871" elapsed="0.000099"/>
+<status status="PASS" start="2025-08-15T19:50:13.904421" elapsed="0.000116"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-12T21:10:53.277126" level="INFO">${rua_random_raw} = gbtjkpnepojd</msg>
+<msg time="2025-08-15T19:50:13.904727" level="INFO">${rua_random_raw} = worjhzraqkxm</msg>
 <var>${rua_random_raw}</var>
 <arg>length=12</arg>
 <arg>chars=[LOWER]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.277022" elapsed="0.000118"/>
+<status status="PASS" start="2025-08-15T19:50:13.904597" elapsed="0.000146"/>
 </kw>
 <kw name="Convert To Title Case" owner="String">
-<msg time="2025-08-12T21:10:53.277282" level="INFO">${rua_random} = Gbtjkpnepojd</msg>
+<msg time="2025-08-15T19:50:13.904901" level="INFO">${rua_random} = Worjhzraqkxm</msg>
 <var>${rua_random}</var>
 <arg>${rua_random_raw}</arg>
 <doc>Converts string to title case.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.277196" elapsed="0.000101"/>
+<status status="PASS" start="2025-08-15T19:50:13.904808" elapsed="0.000108"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.277461" level="INFO">${complemento_numero} = 236</msg>
+<msg time="2025-08-15T19:50:13.905101" level="INFO">${complemento_numero} = 99</msg>
 <var>${complemento_numero}</var>
 <arg>random.randint(1, 500)</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.277351" elapsed="0.000125"/>
+<status status="PASS" start="2025-08-15T19:50:13.904976" elapsed="0.000140"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.277613" level="INFO">${complemento_random} = Apt 236</msg>
+<msg time="2025-08-15T19:50:13.905277" level="INFO">${complemento_random} = Apt 99</msg>
 <var>${complemento_random}</var>
 <arg>Apt ${complemento_numero}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.277531" elapsed="0.000096"/>
+<status status="PASS" start="2025-08-15T19:50:13.905181" elapsed="0.000112"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.278283" level="INFO">${body} = {'corporateName': 'Empresa Cgjrmu', 'registerCompany': '12345678000199', 'mail': 'testcgjrmu@teste.com', 'matriz': 'Matriz Cgjrmu', 'responsibleContact': 'Cgjrmu Ublxodqv', 'telephone': '5511167260920...</msg>
+<msg time="2025-08-15T19:50:13.906018" level="INFO">${body} = {'corporateName': 'Empresa Jxsixg', 'registerCompany': '12345678000199', 'mail': 'testjxsixg@teste.com', 'matriz': 'Matriz Jxsixg', 'responsibleContact': 'Jxsixg Qvwemafk', 'telephone': '5511121159046...</msg>
 <var>${body}</var>
 <arg>corporateName=Empresa ${nome1}</arg>
 <arg>registerCompany=12345678000199</arg>
@@ -673,10 +359,10 @@
 <arg>serviceDescription=Serviço de ${nome1}</arg>
 <arg>address=@{EMPTY}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.277685" elapsed="0.000649"/>
+<status status="PASS" start="2025-08-15T19:50:13.905361" elapsed="0.000678"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.278661" level="INFO">${endereco} = {'zipCode': '12345678', 'city': 'Rio de Janeiro', 'state': 'RJ', 'district': 'Fyhkpfmj', 'street': 'Gbtjkpnepojd', 'number': 5274, 'complement': 'Apt 236', 'country': 'Brasil'}</msg>
+<msg time="2025-08-15T19:50:13.906439" level="INFO">${endereco} = {'zipCode': '12345678', 'city': 'São Paulo', 'state': 'SP', 'district': 'Mfkksyrv', 'street': 'Worjhzraqkxm', 'number': 6079, 'complement': 'Apt 99', 'country': 'Brasil'}</msg>
 <var>${endereco}</var>
 <arg>zipCode=${cep_random}</arg>
 <arg>city=${cidade_random}</arg>
@@ -687,320 +373,203 @@
 <arg>complement=${complemento_random}</arg>
 <arg>country=Brasil</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.278427" elapsed="0.000251"/>
+<status status="PASS" start="2025-08-15T19:50:13.906125" elapsed="0.000336"/>
 </kw>
 <kw name="Append To List" owner="Collections">
 <arg>${body["address"]}</arg>
 <arg>${endereco}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.278770" elapsed="0.000315"/>
+<status status="PASS" start="2025-08-15T19:50:13.906544" elapsed="0.000378"/>
 </kw>
 <return>
 <value>${body}</value>
-<status status="PASS" start="2025-08-12T21:10:53.279122" elapsed="0.000027"/>
+<status status="PASS" start="2025-08-15T19:50:13.906964" elapsed="0.000031"/>
 </return>
-<msg time="2025-08-12T21:10:53.279233" level="INFO">${body} = {'corporateName': 'Empresa Cgjrmu', 'registerCompany': '12345678000199', 'mail': 'testcgjrmu@teste.com', 'matriz': 'Matriz Cgjrmu', 'responsibleContact': 'Cgjrmu Ublxodqv', 'telephone': '5511167260920...</msg>
+<msg time="2025-08-15T19:50:13.907087" level="INFO">${body} = {'corporateName': 'Empresa Jxsixg', 'registerCompany': '12345678000199', 'mail': 'testjxsixg@teste.com', 'matriz': 'Matriz Jxsixg', 'responsibleContact': 'Jxsixg Qvwemafk', 'telephone': '5511121159046...</msg>
 <var>${body}</var>
-<status status="PASS" start="2025-08-12T21:10:53.273392" elapsed="0.005858"/>
+<status status="PASS" start="2025-08-15T19:50:13.901362" elapsed="0.005744"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:53.401658" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/company 
+<msg time="2025-08-15T19:50:14.007073" level="INFO">POST Request : url=https://api-shogun.qacoders.dev.br/api/company 
  path_url=/api/company 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDQsImV4cCI6MTc1NTEzMDI0NH0.n-lz4doueI5wc9PqyzFQCHyUKlyUAia74K0UaXMopTw', 'Content-Length': '441'} 
- body=b'{"corporateName": "Empresa Cgjrmu", "registerCompany": "12345678000199", "mail": "testcgjrmu@teste.com", "matriz": "Matriz Cgjrmu", "responsibleContact": "Cgjrmu Ublxodqv", "telephone": "5511167260920", "serviceDescription": "Servi\\u00e7o de Cgjrmu", "address": [{"zipCode": "12345678", "city": "Rio de Janeiro", "state": "RJ", "district": "Fyhkpfmj", "street": "Gbtjkpnepojd", "number": 5274, "complement": "Apt 236", "country": "Brasil"}]}' 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA0LCJleHAiOjE3NTUzODQ2MDR9.wBvDLgZQsRC4BbLfnUNADJvwLLndJSJQk9nmP3u6vh0', 'Content-Length': '440'} 
+ body=b'{"corporateName": "Empresa Jxsixg", "registerCompany": "12345678000199", "mail": "testjxsixg@teste.com", "matriz": "Matriz Jxsixg", "responsibleContact": "Jxsixg Qvwemafk", "telephone": "5511121159046", "serviceDescription": "Servi\\u00e7o de Jxsixg", "address": [{"zipCode": "12345678", "city": "S\\u00e3o Paulo", "state": "SP", "district": "Mfkksyrv", "street": "Worjhzraqkxm", "number": 6079, "complement": "Apt 99", "country": "Brasil"}]}' 
  </msg>
-<msg time="2025-08-12T21:10:53.401836" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/company 
- status=201, reason=Created 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '764', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:45 GMT', 'Etag': 'W/"2fc-IOab5aLDv5zHvKegdoIIC/BEOCc"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá a companhia true foi cadastrada com sucesso.","newCompany":{"corporateName":"Empresa Cgjrmu","registerCompany":"12345678000199","responsibleContact":"Cgjrmu Ublxodqv","mail":"testcgjrmu@teste.com","telephone":"5511167260920","serviceDescription":"Serviço de Cgjrmu","matriz":"Matriz Cgjrmu","status":true,"address":[{"country":"Brasil","zipCode":"12345678","city":"Rio de Janeiro","state":"RJ","district":"Fyhkpfmj","street":"Gbtjkpnepojd","number":"5274","complement":"Apt 236","_id":"689bd805e56b350eb670568e"}],"audit":[{"registrationDate":"terça-feira, 12/08/2025, 21:10:45 BRT","registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"_id":"689bd805e56b350eb670568f"}],"_id":"689bd805e56b350eb670568d","__v":0}} 
+<msg time="2025-08-15T19:50:14.007157" level="INFO">POST Response : url=https://api-shogun.qacoders.dev.br/api/company 
+ status=400, reason=Bad Request 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '64', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:04 GMT', 'Etag': 'W/"40-H2jZvUOL0Cx2ykFM7NDmgejz06o"', 'X-Powered-By': 'Express'} 
+ body={"error":["O campo 'número' só pode conter apenas números."]} 
  </msg>
-<msg time="2025-08-12T21:10:53.402233" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<msg time="2025-08-15T19:50:14.007287" level="FAIL">Url: https://api-shogun.qacoders.dev.br/api/company Expected status: 400 != 201</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/company</arg>
 <arg>json=${body}</arg>
 <arg>expected_status=201</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.279311" elapsed="0.122984"/>
+<status status="FAIL" start="2025-08-15T19:50:13.907172" elapsed="0.101790">Url: https://api-shogun.qacoders.dev.br/api/company Expected status: 400 != 201</status>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.403339" level="INFO">${Company_ID} = 689bd805e56b350eb670568d</msg>
 <arg>${Company_ID}</arg>
 <arg>${resposta.json()["newCompany"]["_id"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.402589" elapsed="0.000811"/>
+<status status="NOT RUN" start="2025-08-15T19:50:14.009135" elapsed="0.000032"/>
 </kw>
 <return>
 <value>${Company_ID}</value>
-<status status="PASS" start="2025-08-12T21:10:53.403483" elapsed="0.000055"/>
+<status status="NOT RUN" start="2025-08-15T19:50:14.009210" elapsed="0.000019"/>
 </return>
-<msg time="2025-08-12T21:10:53.403691" level="INFO">${id} = 689bd805e56b350eb670568d</msg>
 <var>${id}</var>
-<status status="PASS" start="2025-08-12T21:10:52.345499" elapsed="1.058223"/>
+<status status="FAIL" start="2025-08-15T19:50:13.104246" elapsed="0.905075">Url: https://api-shogun.qacoders.dev.br/api/company Expected status: 400 != 201</status>
 </kw>
 <kw name="Buscar Company Por ID" owner="company">
-<kw name="Login com sysadmin" owner="login">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.405397" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
-<var>${body}</var>
-<arg>mail=sysadmin@qacoders.com</arg>
-<arg>password=1234@Test</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.405220" elapsed="0.000207"/>
-</kw>
-<kw name="Criar Sessão" owner="login">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:53.405854" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
-<var>${headers}</var>
-<arg>accept=application/json</arg>
-<arg>Content-Type=application/json</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.405727" elapsed="0.000151"/>
-</kw>
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:53.406169" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<arg>alias=develop</arg>
-<arg>url=${baseURL}</arg>
-<arg>headers=${headers}</arg>
-<arg>verify=true</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:53.405970" elapsed="0.000319"/>
-</kw>
-<status status="PASS" start="2025-08-12T21:10:53.405558" elapsed="0.000789"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:54.135461" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/login 
- path_url=/api/login 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
- body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
- </msg>
-<msg time="2025-08-12T21:10:54.135617" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/login 
- status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:45 GMT', 'Etag': 'W/"536-rievzNauOhhuUtOX4dTUWfJ5DgU"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6888ecda6d0acf13553c9eec","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LgD0Z/OD9TL6XFx2gPEpq.S6JTP1EDgaT/I5LIo7VeMWOqtzQJh2K","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 29/07/2025, 12:46:34 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6888ecda6d0acf13553c9eed"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDUsImV4cCI6MTc1NTEzMDI0NX0.TmffKOhP3ASmrVKHPZnm0yMX5sKNyzXMpSL7NR_ajVc"} 
- </msg>
-<msg time="2025-08-12T21:10:54.135918" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
-<var>${resposta}</var>
-<arg>alias=develop</arg>
-<arg>url=/login</arg>
-<arg>json=${body}</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:53.406418" elapsed="0.729522"/>
-</kw>
-<kw name="Status Should Be" owner="RequestsLibrary">
-<arg>200</arg>
-<arg>${resposta}</arg>
-<doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.136084" elapsed="0.000190"/>
-</kw>
-<kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:54.136736" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
-<arg>${TOKEN}</arg>
-<arg>${resposta.json()["token"]}</arg>
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.136368" elapsed="0.000404"/>
-</kw>
-<return>
-<value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-12T21:10:54.136820" elapsed="0.000036"/>
-</return>
-<msg time="2025-08-12T21:10:54.137128" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
-<var>${TOKEN}</var>
-<status status="PASS" start="2025-08-12T21:10:53.404990" elapsed="0.732159"/>
-</kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:54.137401" level="INFO">${headers} = {'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYW...</msg>
-<var>${headers}</var>
-<arg>accept=application/json</arg>
-<arg>Authorization=${TOKEN}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.137243" elapsed="0.000178"/>
-</kw>
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:54.137643" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDUsImV4cCI6MTc1NTEzMDI0NX0.TmffKOhP3ASmrVKHPZnm0yMX5sKNyzXMpSL7NR_ajVc'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<arg>alias=develop</arg>
-<arg>url=${baseURL}</arg>
-<arg>headers=${headers}</arg>
-<arg>verify=true</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:54.137499" elapsed="0.000247"/>
-</kw>
-<kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:54.236440" level="INFO">GET Request : url=https://api-supernatural.qacoders.dev.br/api/company/689bd805e56b350eb670568d 
- path_url=/api/company/689bd805e56b350eb670568d 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDUsImV4cCI6MTc1NTEzMDI0NX0.TmffKOhP3ASmrVKHPZnm0yMX5sKNyzXMpSL7NR_ajVc'} 
- body=None 
- </msg>
-<msg time="2025-08-12T21:10:54.236520" level="INFO">GET Response : url=https://api-supernatural.qacoders.dev.br/api/company/689bd805e56b350eb670568d 
- status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '691', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:45 GMT', 'Etag': 'W/"2b3-pNba+/16hkUY9E8G8v9E7lQLDhE"', 'X-Powered-By': 'Express'} 
- body={"_id":"689bd805e56b350eb670568d","corporateName":"Empresa Cgjrmu","registerCompany":"12345678000199","responsibleContact":"Cgjrmu Ublxodqv","mail":"testcgjrmu@teste.com","telephone":"5511167260920","serviceDescription":"Serviço de Cgjrmu","matriz":"Matriz Cgjrmu","status":true,"address":[{"country":"Brasil","zipCode":"12345678","city":"Rio de Janeiro","state":"RJ","district":"Fyhkpfmj","street":"Gbtjkpnepojd","number":"5274","complement":"Apt 236","_id":"689bd805e56b350eb670568e"}],"audit":[{"registeredBy":{"userId":"6888ecda6d0acf13553c9eec","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 12/08/2025, 21:10:45 BRT","_id":"689bd805e56b350eb670568f"}],"__v":0} 
- </msg>
-<msg time="2025-08-12T21:10:54.236623" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
-<var>${resposta}</var>
-<arg>alias=develop</arg>
-<arg>url=/company/${company_id}</arg>
-<arg>expected_status=200</arg>
-<doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.137818" elapsed="0.098822"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2025-08-12T21:10:54.237117" level="INFO">{'_id': '689bd805e56b350eb670568d', 'corporateName': 'Empresa Cgjrmu', 'registerCompany': '12345678000199', 'responsibleContact': 'Cgjrmu Ublxodqv', 'mail': 'testcgjrmu@teste.com', 'telephone': '5511167260920', 'serviceDescription': 'Serviço de Cgjrmu', 'matriz': 'Matriz Cgjrmu', 'status': True, 'address': [{'country': 'Brasil', 'zipCode': '12345678', 'city': 'Rio de Janeiro', 'state': 'RJ', 'district': 'Fyhkpfmj', 'street': 'Gbtjkpnepojd', 'number': '5274', 'complement': 'Apt 236', '_id': '689bd805e56b350eb670568e'}], 'audit': [{'registeredBy': {'userId': '6888ecda6d0acf13553c9eec', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationDate': 'terça-feira, 12/08/2025, 21:10:45 BRT', '_id': '689bd805e56b350eb670568f'}], '__v': 0}</msg>
-<arg>${resposta.json()}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.236776" elapsed="0.000378"/>
-</kw>
-<return>
-<value>${resposta.json()}</value>
-<status status="PASS" start="2025-08-12T21:10:54.237200" elapsed="0.000032"/>
-</return>
 <arg>${id}</arg>
-<status status="PASS" start="2025-08-12T21:10:53.404566" elapsed="0.832893"/>
+<status status="NOT RUN" start="2025-08-15T19:50:14.010090" elapsed="0.000047"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:52.344800" elapsed="1.893271"/>
+<status status="FAIL" start="2025-08-15T19:50:13.103755" elapsed="0.906702">Url: https://api-shogun.qacoders.dev.br/api/company Expected status: 400 != 201</status>
 </test>
-<test id="s1-t4" name="Testar Contagem de Companies" line="19">
+<test id="s1-t3" name="Testar Contagem de Companies" line="15">
 <kw name="Contar Companies" owner="company">
 <kw name="Login com sysadmin" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:54.240023" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
+<msg time="2025-08-15T19:50:14.013380" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
 <var>${body}</var>
 <arg>mail=sysadmin@qacoders.com</arg>
 <arg>password=1234@Test</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.239872" elapsed="0.000176"/>
+<status status="PASS" start="2025-08-15T19:50:14.013173" elapsed="0.000233"/>
 </kw>
 <kw name="Criar Sessão" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:54.240513" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<msg time="2025-08-15T19:50:14.013801" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.240392" elapsed="0.000144"/>
+<status status="PASS" start="2025-08-15T19:50:14.013670" elapsed="0.000153"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:54.240803" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:14.014135" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:54.240618" elapsed="0.000296"/>
+<status status="PASS" start="2025-08-15T19:50:14.013913" elapsed="0.000359"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:54.240235" elapsed="0.000729"/>
+<status status="PASS" start="2025-08-15T19:50:14.013513" elapsed="0.000808"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:55.034605" level="INFO">POST Request : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:14.796019" level="INFO">POST Request : url=https://api-shogun.qacoders.dev.br/api/login 
  path_url=/api/login 
  headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
  body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
  </msg>
-<msg time="2025-08-12T21:10:55.034676" level="INFO">POST Response : url=https://api-supernatural.qacoders.dev.br/api/login 
+<msg time="2025-08-15T19:50:14.796189" level="INFO">POST Response : url=https://api-shogun.qacoders.dev.br/api/login 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:45 GMT', 'Etag': 'W/"536-ymNdbgXvb6yvreiXS5rLsoQq5nQ"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6888ecda6d0acf13553c9eec","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LgD0Z/OD9TL6XFx2gPEpq.S6JTP1EDgaT/I5LIo7VeMWOqtzQJh2K","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 29/07/2025, 12:46:34 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6888ecda6d0acf13553c9eed"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDYsImV4cCI6MTc1NTEzMDI0Nn0.fuvdMqgqa41gDK_wkBSSeIT3CRG-0oJMlgKu3zdAy5g"} 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1322', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:04 GMT', 'Etag': 'W/"52a-49Ex45OkzNhfxwI5i3h9QRw9/ho"', 'X-Powered-By': 'Express'} 
+ body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"6886c3bb2b4b1a0ca46395e6","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$SxdyqSwUVCQXc52P8Y/DteUXO5VKH7RpZvF1tHVvOv1vFQewzAdMy","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"domingo, 27/07/2025, 21:26:35 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"6886c3bb2b4b1a0ca46395e7"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA1LCJleHAiOjE3NTUzODQ2MDV9.-UOJi7E7K7ta_kHFH-2NoWtTTrfF10ZSlFz3FTHuWKA"} 
  </msg>
-<msg time="2025-08-12T21:10:55.034768" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T19:50:14.796537" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/login</arg>
 <arg>json=${body}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:54.241026" elapsed="0.793758"/>
+<status status="PASS" start="2025-08-15T19:50:14.014383" elapsed="0.782203"/>
 </kw>
 <kw name="Status Should Be" owner="RequestsLibrary">
 <arg>200</arg>
 <arg>${resposta}</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.034902" elapsed="0.000137"/>
+<status status="PASS" start="2025-08-15T19:50:14.796925" elapsed="0.000318"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-12T21:10:55.035484" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:14.797912" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <arg>${TOKEN}</arg>
 <arg>${resposta.json()["token"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.035127" elapsed="0.000393"/>
+<status status="PASS" start="2025-08-15T19:50:14.797428" elapsed="0.000526"/>
 </kw>
 <return>
 <value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-12T21:10:55.035565" elapsed="0.000034"/>
+<status status="PASS" start="2025-08-15T19:50:14.798005" elapsed="0.000038"/>
 </return>
-<msg time="2025-08-12T21:10:55.035854" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9...</msg>
+<msg time="2025-08-15T19:50:14.798314" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN...</msg>
 <var>${TOKEN}</var>
-<status status="PASS" start="2025-08-12T21:10:54.239739" elapsed="0.796137"/>
+<status status="PASS" start="2025-08-15T19:50:14.012856" elapsed="0.785478"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-12T21:10:55.036193" level="INFO">${headers} = {'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYW...</msg>
+<msg time="2025-08-15T19:50:14.798583" level="INFO">${headers} = {'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYW...</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Authorization=${TOKEN}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.036033" elapsed="0.000180"/>
+<status status="PASS" start="2025-08-15T19:50:14.798426" elapsed="0.000176"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:55.036463" level="INFO">Creating Session using : alias=develop, url=https://api-supernatural.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDYsImV4cCI6MTc1NTEzMDI0Nn0.fuvdMqgqa41gDK_wkBSSeIT3CRG-0oJMlgKu3zdAy5g'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T19:50:14.798906" level="INFO">Creating Session using : alias=develop, url=https://api-shogun.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA1LCJleHAiOjE3NTUzODQ2MDV9.-UOJi7E7K7ta_kHFH-2NoWtTTrfF10ZSlFz3FTHuWKA'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-12T21:10:55.036301" elapsed="0.000273"/>
+<status status="PASS" start="2025-08-15T19:50:14.798724" elapsed="0.000302"/>
 </kw>
 <kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2025-08-12T21:10:55.139940" level="INFO">GET Request : url=https://api-supernatural.qacoders.dev.br/api/company/count 
+<msg time="2025-08-15T19:50:14.902717" level="INFO">GET Request : url=https://api-shogun.qacoders.dev.br/api/company/count 
  path_url=/api/company/count 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg4ZWNkYTZkMGFjZjEzNTUzYzllZWMiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMZ0QwWi9PRDlUTDZYRngyZ1BFcHEuUzZKVFAxRURnYVQvSTVMSW83VmVNV09xdHpRSmgySyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyOS8wNy8yMDI1LCAxMjo0NjozNCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4ODhlY2RhNmQwYWNmMTM1NTNjOWVlZCJ9XSwiX192IjowLCJpYXQiOjE3NTUwNDM4NDYsImV4cCI6MTc1NTEzMDI0Nn0.fuvdMqgqa41gDK_wkBSSeIT3CRG-0oJMlgKu3zdAy5g'} 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTYiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRTeGR5cVN3VVZDUVhjNTJQOFkvRHRlVVhPNVZLSDdScFp2RjF0SFZ2T3YxdkZRZXd6QWRNeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoiZG9taW5nbywgMjcvMDcvMjAyNSwgMjE6MjY6MzUgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiMDEiLCJjb21wYW55SWQiOiJRYS5Db2RlcnMiLCJfaWQiOiI2ODg2YzNiYjJiNGIxYTBjYTQ2Mzk1ZTcifV0sIl9fdiI6MCwiaWF0IjoxNzU1Mjk4MjA1LCJleHAiOjE3NTUzODQ2MDV9.-UOJi7E7K7ta_kHFH-2NoWtTTrfF10ZSlFz3FTHuWKA'} 
  body=None 
  </msg>
-<msg time="2025-08-12T21:10:55.140078" level="INFO">GET Response : url=https://api-supernatural.qacoders.dev.br/api/company/count 
+<msg time="2025-08-15T19:50:14.902811" level="INFO">GET Response : url=https://api-shogun.qacoders.dev.br/api/company/count 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Wed, 13 Aug 2025 00:10:46 GMT', 'Etag': 'W/"c-1+EcAOxwWk8HdHqYdmjeZEewdt8"', 'X-Powered-By': 'Express'} 
- body={"count":12} 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 22:50:05 GMT', 'Etag': 'W/"c-KajUJNl0SJpNMKAhOuxkZlMt3OI"', 'X-Powered-By': 'Express'} 
+ body={"count":14} 
  </msg>
-<msg time="2025-08-12T21:10:55.140191" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T19:50:14.902928" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/company/count</arg>
 <arg>expected_status=200</arg>
 <doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.036654" elapsed="0.103559"/>
+<status status="PASS" start="2025-08-15T19:50:14.799109" elapsed="0.103837"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-08-12T21:10:55.140745" level="INFO">{'count': 12}</msg>
+<msg time="2025-08-15T19:50:14.903523" level="INFO">{'count': 14}</msg>
 <arg>${resposta.json()}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.140370" elapsed="0.000411"/>
+<status status="PASS" start="2025-08-15T19:50:14.903114" elapsed="0.000446"/>
 </kw>
 <return>
 <value>${resposta.json()}</value>
-<status status="PASS" start="2025-08-12T21:10:55.140828" elapsed="0.000041"/>
+<status status="PASS" start="2025-08-15T19:50:14.903607" elapsed="0.000051"/>
 </return>
-<msg time="2025-08-12T21:10:55.141134" level="INFO">${resultado} = {'count': 12}</msg>
+<msg time="2025-08-15T19:50:14.903922" level="INFO">${resultado} = {'count': 14}</msg>
 <var>${resultado}</var>
-<status status="PASS" start="2025-08-12T21:10:54.239537" elapsed="0.901617"/>
+<status status="PASS" start="2025-08-15T19:50:14.012496" elapsed="0.891477"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${resultado['count']} &gt;= 0</arg>
 <arg>msg=Contagem inválida</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2025-08-12T21:10:55.141622" elapsed="0.001053"/>
+<status status="PASS" start="2025-08-15T19:50:14.904431" elapsed="0.000761"/>
 </kw>
-<status status="PASS" start="2025-08-12T21:10:54.239005" elapsed="0.903942"/>
+<status status="PASS" start="2025-08-15T19:50:14.011748" elapsed="0.893927"/>
 </test>
-<status status="PASS" start="2025-08-12T21:10:49.868812" elapsed="5.274972"/>
+<status status="FAIL" start="2025-08-15T19:50:11.548635" elapsed="3.358602"/>
 </suite>
 <statistics>
 <total>
-<stat pass="4" fail="0" skip="0">All Tests</stat>
+<stat pass="2" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Company Test" id="s1" pass="4" fail="0" skip="0">Company Test</stat>
+<stat name="Get.Company Test" id="s1" pass="2" fail="1" skip="0">Get.Company Test</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-08-12T21:10:50.430728" level="WARN">Error in file 'C:\Users\aline\invictus-academyt14-api-robot\resources\login.resource' on line 24: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-08-15T19:50:12.257802" level="WARN">Error in file 'C:\Users\aline\invictus-academyt14-api-robot\resources\login.resource' on line 24: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>
