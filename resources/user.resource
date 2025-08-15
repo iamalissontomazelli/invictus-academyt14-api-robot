@@ -103,7 +103,7 @@ Atualizar senha do usuário
     Create Session        alias=develop    url=${baseURL}    headers=${headers}    verify=true
   
     ${resposta}    Put On Session     alias=develop    url=user/password/${ID_USUARIO}    json=${body}
-    Log To Console    ATUALIZAR USUARIO:${resposta.json()}
+    
 
 Atualizar status do usuário
     Cadastrar novo usuario
@@ -112,7 +112,7 @@ Atualizar status do usuário
     Create Session        alias=develop    url=${baseURL}    headers=${headers}    verify=true
   
     ${resposta}    Put On Session     alias=develop    url=user/status/${ID_USUARIO}?token=${TOKEN}
-    Log To Console    ATUALIZAR USUARIO:${resposta.json()}
+    
 
 
 
