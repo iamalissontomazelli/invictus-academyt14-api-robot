@@ -6,6 +6,7 @@ Library              SeleniumLibrary
 Library              String
 
 *** Variables ***
+
 ${baseURL}           https://api-suits.qacoders.dev.br/api/
       
 *** Keywords ***

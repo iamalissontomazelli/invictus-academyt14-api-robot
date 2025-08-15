@@ -6,7 +6,7 @@ Nosso objetivo é garantir a qualidade contínua das aplicações por meio de te
 
 ## 🚀 Organização do Repositório
 
-- 📂 `sprint-01/`, `sprint-02/`, etc.: Cada pasta representa uma sprint semanal, contendo os testes realizados no período.
+- 📂 `sprint-05/`, `sprint-06`, etc.: Cada pasta representa uma sprint semanal, contendo os testes realizados no período.
 - 🧪 Testes podem incluir: testes de API (Postman), testes funcionais, scripts de automação, evidências e documentos.
 
 ## 📅 Estrutura de Sprints

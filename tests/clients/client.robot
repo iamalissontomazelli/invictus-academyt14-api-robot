@@ -20,10 +20,15 @@ Cliente email inválido
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Email Inválido
 
-Cliente cargo não alfabético
+# Positivo (já cobre cargo alfabético)
+POST - Cadastrar cliente com sucesso
+    [Tags]    client    post    funcional    smoke
+    Cadastrar Cliente com Sucesso
+
+# Negativo: cargo com números/símbolos
+POST - Cliente cargo não alfabético
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Cargo Não Alfabético
-
 Cliente ramo não alfabético
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Ramo Não Alfabético
@@ -43,3 +48,13 @@ Cliente campos obrigatórios vazios
 Cliente duplicado (409)
     [Tags]    client    post    nao_funcional    duplicado
     Cliente Já Cadastrado no Sistema
+
+Remover cliente por id
+    [Tags]    client    delete    funcional
+    Remover Cliente por Id (Sucesso)
+
+
+
+
+
+
