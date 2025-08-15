@@ -14,9 +14,8 @@ Validar Token Sysadmin
     #Cadastrar novo usuario  
 Listar usuario
     Listagem de Usuário  
-
+    
 
 Contagem de usuario  
     Contagem de Usuário  
           
-
