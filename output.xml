@@ -1,315 +1,315 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.5 on darwin)" generated="2025-08-15T07:46:35.551299" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.13.5 on darwin)" generated="2025-08-15T16:42:14.678643" rpa="false" schemaversion="5">
 <suite id="s1" name="Client" source="/Users/alissontomazelli/Documents/Invictus/invictus-academyt14-api-robot/tests/clients/client.robot">
 <kw name="Log" owner="BuiltIn" type="SETUP">
-<msg time="2025-08-15T07:46:35.654816" level="INFO">Iniciando testes de Client</msg>
+<msg time="2025-08-15T16:42:14.748914" level="INFO">Iniciando testes de Client</msg>
 <arg>Iniciando testes de Client</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-15T07:46:35.654695" elapsed="0.000257"/>
+<status status="PASS" start="2025-08-15T16:42:14.748789" elapsed="0.000790"/>
 </kw>
-<test id="s1-t1" name="Cadastrar cliente com sucesso" line="10">
+<test id="s1-t1" name="POST - Cadastrar cliente com sucesso" line="24">
 <kw name="Cadastrar Cliente com Sucesso" owner="client">
 <kw name="Criar Sessão Autenticada Client" owner="client">
 <kw name="Login com sysadmin" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:35.655888" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
+<msg time="2025-08-15T16:42:14.750674" level="INFO">${body} = {'mail': 'sysadmin@qacoders.com', 'password': '1234@Test'}</msg>
 <var>${body}</var>
 <arg>mail=sysadmin@qacoders.com</arg>
 <arg>password=1234@Test</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:35.655770" elapsed="0.000217"/>
+<status status="PASS" start="2025-08-15T16:42:14.750552" elapsed="0.000315"/>
 </kw>
 <kw name="Criar Sessão" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:35.656284" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<msg time="2025-08-15T16:42:14.751425" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:35.656194" elapsed="0.000127"/>
+<status status="PASS" start="2025-08-15T16:42:14.751303" elapsed="0.000168"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-15T07:46:35.656528" level="INFO">Creating Session using : alias=develop, url=https://api-suits.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T16:42:14.751684" level="INFO">Creating Session using : alias=develop, url=https://api-invictus.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-15T07:46:35.656381" elapsed="0.000263"/>
+<status status="PASS" start="2025-08-15T16:42:14.751535" elapsed="0.000266"/>
 </kw>
-<status status="PASS" start="2025-08-15T07:46:35.656062" elapsed="0.000633"/>
+<status status="PASS" start="2025-08-15T16:42:14.751098" elapsed="0.000751"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-15T07:46:37.383348" level="INFO">POST Request : url=https://api-suits.qacoders.dev.br/api/login 
+<msg time="2025-08-15T16:42:16.270069" level="INFO">POST Request : url=https://api-invictus.qacoders.dev.br/api/login 
  path_url=/api/login 
  headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
  body=b'{"mail": "sysadmin@qacoders.com", "password": "1234@Test"}' 
  </msg>
-<msg time="2025-08-15T07:46:37.383891" level="INFO">POST Response : url=https://api-suits.qacoders.dev.br/api/login 
+<msg time="2025-08-15T16:42:16.270580" level="INFO">POST Response : url=https://api-invictus.qacoders.dev.br/api/login 
  status=200, reason=OK 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 06:46:28 GMT', 'Etag': 'W/"536-hSVK310x9mbxewpGV5/ncbV4kvM"', 'X-Powered-By': 'Express'} 
- body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"686457504fa88bbe94977c87","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$IEhehW7pG8B6UVKNXxAIJeu0UfkNj8C8agcZB3QFbL6XZx0aQpoC2","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"terça-feira, 01/07/2025, 18:46:56 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"686457504fa88bbe94977c88"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRJRWhlaFc3cEc4QjZVVktOWHhBSUpldTBVZmtOajhDOGFnY1pCM1FGYkw2WFp4MGFRcG9DMiIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAwMS8wNy8yMDI1LCAxODo0Njo1NiBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4NjQ1NzUwNGZhODhiYmU5NDk3N2M4OCJ9XSwiX192IjowLCJpYXQiOjE3NTUyNDAzODgsImV4cCI6MTc1NTMyNjc4OH0.tUHwpCR4G_243g5ozO43kEt5NabrxaFf6gObMgeQGxU"} 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '1334', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 15:42:07 GMT', 'Etag': 'W/"536-KvZKfj6FDmkenk7v+ZPLwlNWftA"', 'X-Powered-By': 'Express'} 
+ body={"msg":"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!","user":{"_id":"689cd9ac715d88a4297cebed","fullName":"Qa-Coders-SYSADMIN","mail":"sysadmin@qacoders.com","password":"$2b$10$LY8JLNopE0TPJoieGwNjNeUlqaKO9QDTOCv81mOmAoJfzMExVeRIK","accessProfile":"SYSADMIN","cpf":"11111111111","status":true,"audit":[{"registeredBy":{"userId":"111111111111111111","userLogin":"sysadmin@qacoders.com"},"registrationDate":"quarta-feira, 13/08/2025, 15:30:03 BRT","registrationNumber":"01","companyId":"Qa.Coders","_id":"689cd9ac715d88a4297cebee"}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMWThKTE5vcEUwVFBKb2llR3dOak5lVWxxYUtPOVFEVE9DdjgxbU9tQW9KZnpNRXhWZVJJSyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAxMy8wOC8yMDI1LCAxNTozMDowMyBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4OWNkOWFjNzE1ZDg4YTQyOTdjZWJlZSJ9XSwiX192IjowLCJpYXQiOjE3NTUyNzI1MjcsImV4cCI6MTc1NTM1ODkyN30.EGF6oQlcjY7o-IOWbDhndRMR5CX2_QKkR209yNbbGGs"} 
  </msg>
-<msg time="2025-08-15T07:46:37.384281" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<msg time="2025-08-15T16:42:16.270925" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/login</arg>
 <arg>json=${body}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-08-15T07:46:35.656749" elapsed="1.727680"/>
+<status status="PASS" start="2025-08-15T16:42:14.751900" elapsed="1.519130"/>
 </kw>
 <kw name="Status Should Be" owner="RequestsLibrary">
 <arg>200</arg>
 <arg>${resposta}</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.384826" elapsed="0.000514"/>
+<status status="PASS" start="2025-08-15T16:42:16.271391" elapsed="0.000472"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.386969" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRJRWhlaFc...</msg>
+<msg time="2025-08-15T16:42:16.273065" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMWThKTE5...</msg>
 <arg>${TOKEN}</arg>
 <arg>${resposta.json()["token"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.385594" elapsed="0.001519"/>
+<status status="PASS" start="2025-08-15T16:42:16.272056" elapsed="0.001142"/>
 </kw>
 <return>
 <value>${resposta.json()["token"]}</value>
-<status status="PASS" start="2025-08-15T07:46:37.387229" elapsed="0.000146"/>
+<status status="PASS" start="2025-08-15T16:42:16.273297" elapsed="0.000136"/>
 </return>
-<msg time="2025-08-15T07:46:37.387853" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRJRWhlaFc...</msg>
+<msg time="2025-08-15T16:42:16.273850" level="INFO">${TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMWThKTE5...</msg>
 <var>${TOKEN}</var>
-<status status="PASS" start="2025-08-15T07:46:35.655667" elapsed="1.733288"/>
+<status status="PASS" start="2025-08-15T16:42:14.750449" elapsed="1.524562"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.389624" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWV...</msg>
+<msg time="2025-08-15T16:42:16.275982" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWV...</msg>
 <var>${headers}</var>
 <arg>accept=application/json</arg>
 <arg>Content-Type=application/json</arg>
 <arg>Authorization=${TOKEN}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.389214" elapsed="0.000533"/>
+<status status="PASS" start="2025-08-15T16:42:16.275402" elapsed="0.000739"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-08-15T07:46:37.390296" level="INFO">Creating Session using : alias=develop, url=https://api-suits.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRJRWhlaFc3cEc4QjZVVktOWHhBSUpldTBVZmtOajhDOGFnY1pCM1FGYkw2WFp4MGFRcG9DMiIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAwMS8wNy8yMDI1LCAxODo0Njo1NiBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4NjQ1NzUwNGZhODhiYmU5NDk3N2M4OCJ9XSwiX192IjowLCJpYXQiOjE3NTUyNDAzODgsImV4cCI6MTc1NTMyNjc4OH0.tUHwpCR4G_243g5ozO43kEt5NabrxaFf6gObMgeQGxU'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-08-15T16:42:16.276780" level="INFO">Creating Session using : alias=develop, url=https://api-invictus.qacoders.dev.br/api/, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMWThKTE5vcEUwVFBKb2llR3dOak5lVWxxYUtPOVFEVE9DdjgxbU9tQW9KZnpNRXhWZVJJSyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAxMy8wOC8yMDI1LCAxNTozMDowMyBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4OWNkOWFjNzE1ZDg4YTQyOTdjZWJlZSJ9XSwiX192IjowLCJpYXQiOjE3NTUyNzI1MjcsImV4cCI6MTc1NTM1ODkyN30.EGF6oQlcjY7o-IOWbDhndRMR5CX2_QKkR209yNbbGGs'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>alias=develop</arg>
 <arg>url=${baseURL}</arg>
 <arg>headers=${headers}</arg>
 <arg>verify=true</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-08-15T07:46:37.389930" elapsed="0.000689"/>
+<status status="PASS" start="2025-08-15T16:42:16.276363" elapsed="0.000792"/>
 </kw>
-<doc>Login e criação de sessão com Authorization.</doc>
-<status status="PASS" start="2025-08-15T07:46:35.655546" elapsed="1.735558"/>
+<doc>Realiza login e cria a sessão com Authorization para chamadas autenticadas.</doc>
+<status status="PASS" start="2025-08-15T16:42:14.750340" elapsed="1.528041"/>
 </kw>
 <kw name="Criar Cliente - Dados Válidos" owner="client">
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-15T07:46:37.393550" level="INFO">${rlet} = VeBEFX</msg>
+<msg time="2025-08-15T16:42:16.281608" level="INFO">${rlet} = GHhYXU</msg>
 <var>${rlet}</var>
 <arg>length=6</arg>
 <arg>chars=[LETTERS]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.392167" elapsed="0.001589"/>
+<status status="PASS" start="2025-08-15T16:42:16.279891" elapsed="0.001908"/>
 </kw>
 <kw name="Convert To Lower Case" owner="String">
-<msg time="2025-08-15T07:46:37.394265" level="INFO">${rlet} = vebefx</msg>
+<msg time="2025-08-15T16:42:16.282510" level="INFO">${rlet} = ghhyxu</msg>
 <var>${rlet}</var>
 <arg>${rlet}</arg>
 <doc>Converts string to lower case.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.393984" elapsed="0.000388"/>
+<status status="PASS" start="2025-08-15T16:42:16.282069" elapsed="0.000551"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-15T07:46:37.396851" level="INFO">${rnum} = 918011897</msg>
+<msg time="2025-08-15T16:42:16.283067" level="INFO">${rnum} = 933354553</msg>
 <var>${rnum}</var>
 <arg>length=9</arg>
 <arg>chars=[NUMBERS]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.395132" elapsed="0.001937"/>
+<status status="PASS" start="2025-08-15T16:42:16.282777" elapsed="0.000369"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.398221" level="INFO">${FULL_NAME} = Cliente vebefx</msg>
+<msg time="2025-08-15T16:42:16.283951" level="INFO">${FULL_NAME} = Cliente ghhyxu</msg>
 <arg>${FULL_NAME}</arg>
 <arg>Cliente ${rlet}</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.397405" elapsed="0.001003"/>
+<status status="PASS" start="2025-08-15T16:42:16.283286" elapsed="0.000776"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.399222" level="INFO">${BIRTH_DATE} = 24082023</msg>
+<msg time="2025-08-15T16:42:16.286348" level="INFO">${BIRTH_DATE} = 24082023</msg>
 <arg>${BIRTH_DATE}</arg>
 <arg>24082023</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.398613" elapsed="0.000772"/>
+<status status="PASS" start="2025-08-15T16:42:16.284445" elapsed="0.002184"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.400084" level="INFO">${MAIL} = vebefx.qa@exemplo.com</msg>
+<msg time="2025-08-15T16:42:16.288018" level="INFO">${MAIL} = ghhyxu.qa@exemplo.com</msg>
 <arg>${MAIL}</arg>
 <arg>${rlet}.qa@exemplo.com</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.399542" elapsed="0.000646"/>
+<status status="PASS" start="2025-08-15T16:42:16.287008" elapsed="0.001338"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.401101" level="INFO">${PHONE} = 5591918011897</msg>
+<msg time="2025-08-15T16:42:16.289526" level="INFO">${PHONE} = 5591933354553</msg>
 <arg>${PHONE}</arg>
 <arg>5591${rnum}</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.400316" elapsed="0.001015"/>
+<status status="PASS" start="2025-08-15T16:42:16.288695" elapsed="0.000998"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.402288" level="INFO">${CURRENT_ROLE} = ADMIN</msg>
+<msg time="2025-08-15T16:42:16.290471" level="INFO">${CURRENT_ROLE} = ADMIN</msg>
 <arg>${CURRENT_ROLE}</arg>
 <arg>ADMIN</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.401571" elapsed="0.000850"/>
+<status status="PASS" start="2025-08-15T16:42:16.289868" elapsed="0.000792"/>
 </kw>
 <kw name="Gerar CPF Válido" owner="client">
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.403595" level="INFO">${n} = [1, 5, 6, 5, 1, 1, 1, 2, 6]</msg>
+<msg time="2025-08-15T16:42:16.292029" level="INFO">${n} = [8, 6, 0, 9, 6, 9, 9, 7, 2]</msg>
 <var>${n}</var>
 <arg>[random.randint(0,9) for _ in range(9)]</arg>
 <arg>modules=random</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.403132" elapsed="0.000567"/>
+<status status="PASS" start="2025-08-15T16:42:16.291510" elapsed="0.000667"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.404254" level="INFO">${ns} = {'n': [1, 5, 6, 5, 1, 1, 1, 2, 6]}</msg>
+<msg time="2025-08-15T16:42:16.292628" level="INFO">${ns} = {'n': [8, 6, 0, 9, 6, 9, 9, 7, 2]}</msg>
 <var>${ns}</var>
 <arg>n=${n}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.403868" elapsed="0.000526"/>
+<status status="PASS" start="2025-08-15T16:42:16.292331" elapsed="0.000379"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.405051" level="INFO">${d1} = 5</msg>
+<msg time="2025-08-15T16:42:16.293199" level="INFO">${d1} = 2</msg>
 <var>${d1}</var>
 <arg>(sum([(10-i)*n[i] for i in range(9)])*10) % 11</arg>
 <arg>modules=random</arg>
 <arg>namespace=${ns}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.404586" elapsed="0.000567"/>
+<status status="PASS" start="2025-08-15T16:42:16.292834" elapsed="0.000439"/>
 </kw>
 <kw name="Set Variable If" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.405577" level="INFO">${d1} = 5</msg>
+<msg time="2025-08-15T16:42:16.293626" level="INFO">${d1} = 2</msg>
 <var>${d1}</var>
 <arg>${d1} == 10</arg>
 <arg>0</arg>
 <arg>${d1}</arg>
 <doc>Sets variable based on the given condition.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.405309" elapsed="0.000350"/>
+<status status="PASS" start="2025-08-15T16:42:16.293405" elapsed="0.000292"/>
 </kw>
 <kw name="Append To List" owner="Collections">
 <arg>${n}</arg>
 <arg>${d1}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.405790" elapsed="0.000186"/>
+<status status="PASS" start="2025-08-15T16:42:16.293814" elapsed="0.000165"/>
 </kw>
 <kw name="Set To Dictionary" owner="Collections">
 <arg>${ns}</arg>
 <arg>n=${n}</arg>
 <doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.406094" elapsed="0.000187"/>
+<status status="PASS" start="2025-08-15T16:42:16.294090" elapsed="0.000173"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.406718" level="INFO">${d2} = 0</msg>
+<msg time="2025-08-15T16:42:16.294652" level="INFO">${d2} = 8</msg>
 <var>${d2}</var>
 <arg>(sum([(11-i)*n[i] for i in range(10)])*10) % 11</arg>
 <arg>modules=random</arg>
 <arg>namespace=${ns}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.406405" elapsed="0.000392"/>
+<status status="PASS" start="2025-08-15T16:42:16.294378" elapsed="0.000343"/>
 </kw>
 <kw name="Set Variable If" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.407130" level="INFO">${d2} = 0</msg>
+<msg time="2025-08-15T16:42:16.295024" level="INFO">${d2} = 8</msg>
 <var>${d2}</var>
 <arg>${d2} == 10</arg>
 <arg>0</arg>
 <arg>${d2}</arg>
 <doc>Sets variable based on the given condition.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.406921" elapsed="0.000275"/>
+<status status="PASS" start="2025-08-15T16:42:16.294835" elapsed="0.000249"/>
 </kw>
 <kw name="Append To List" owner="Collections">
 <arg>${n}</arg>
 <arg>${d2}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.407316" elapsed="0.000151"/>
+<status status="PASS" start="2025-08-15T16:42:16.295189" elapsed="0.000145"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.407788" level="INFO">${ns} = {'n': [1, 5, 6, 5, 1, 1, 1, 2, 6, 5, 0]}</msg>
+<msg time="2025-08-15T16:42:16.295629" level="INFO">${ns} = {'n': [8, 6, 0, 9, 6, 9, 9, 7, 2, 2, 8]}</msg>
 <var>${ns}</var>
 <arg>n=${n}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.407582" elapsed="0.000277"/>
+<status status="PASS" start="2025-08-15T16:42:16.295443" elapsed="0.000254"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.408203" level="INFO">${cpf} = 15651112650</msg>
+<msg time="2025-08-15T16:42:16.296032" level="INFO">${cpf} = 86096997228</msg>
 <var>${cpf}</var>
 <arg>''.join(map(str, n))</arg>
 <arg>namespace=${ns}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.407966" elapsed="0.000308"/>
+<status status="PASS" start="2025-08-15T16:42:16.295801" elapsed="0.000299"/>
 </kw>
 <return>
 <value>${cpf}</value>
-<status status="PASS" start="2025-08-15T07:46:37.408354" elapsed="0.000091"/>
+<status status="PASS" start="2025-08-15T16:42:16.296177" elapsed="0.000088"/>
 </return>
-<msg time="2025-08-15T07:46:37.408585" level="INFO">${CPF} = 15651112650</msg>
+<msg time="2025-08-15T16:42:16.296400" level="INFO">${CPF} = 86096997228</msg>
 <var>${CPF}</var>
 <doc>Gera CPF válido (11 dígitos com DV) como string.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.402765" elapsed="0.005885"/>
+<status status="PASS" start="2025-08-15T16:42:16.290987" elapsed="0.005477"/>
 </kw>
 <kw name="Gerar RG Aleatorio" owner="client">
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-15T07:46:37.409534" level="INFO">${rg} = 7568911</msg>
+<msg time="2025-08-15T16:42:16.297093" level="INFO">${rg} = 5695007</msg>
 <var>${rg}</var>
 <arg>length=7</arg>
 <arg>chars=[NUMBERS]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.409130" elapsed="0.000499"/>
+<status status="PASS" start="2025-08-15T16:42:16.296859" elapsed="0.000309"/>
 </kw>
 <return>
 <value>${rg}</value>
-<status status="PASS" start="2025-08-15T07:46:37.409716" elapsed="0.000078"/>
+<status status="PASS" start="2025-08-15T16:42:16.297240" elapsed="0.000063"/>
 </return>
-<msg time="2025-08-15T07:46:37.409929" level="INFO">${RG} = 7568911</msg>
+<msg time="2025-08-15T16:42:16.297421" level="INFO">${RG} = 5695007</msg>
 <var>${RG}</var>
 <doc>Gera RG simples com 7 dígitos.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.408861" elapsed="0.001135"/>
+<status status="PASS" start="2025-08-15T16:42:16.296617" elapsed="0.000865"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.410355" level="INFO">${doc} = {'rg': '7568911', 'cpf': '15651112650'}</msg>
+<msg time="2025-08-15T16:42:16.297803" level="INFO">${doc} = {'rg': '5695007', 'cpf': '86096997228'}</msg>
 <var>${doc}</var>
 <arg>rg=${RG}</arg>
 <arg>cpf=${CPF}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.410118" elapsed="0.000307"/>
+<status status="PASS" start="2025-08-15T16:42:16.297589" elapsed="0.000280"/>
 </kw>
 <kw name="Create List" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.410701" level="INFO">${DOCS_LIST} = [{'rg': '7568911', 'cpf': '15651112650'}]</msg>
+<msg time="2025-08-15T16:42:16.298172" level="INFO">${DOCS_LIST} = [{'rg': '5695007', 'cpf': '86096997228'}]</msg>
 <var>${DOCS_LIST}</var>
 <arg>${doc}</arg>
 <doc>Returns a list containing given items.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.410538" elapsed="0.000373"/>
+<status status="PASS" start="2025-08-15T16:42:16.298031" elapsed="0.000198"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.411422" level="INFO">${DOCS_LIST} = [{'rg': '7568911', 'cpf': '15651112650'}]</msg>
+<msg time="2025-08-15T16:42:16.298469" level="INFO">${DOCS_LIST} = [{'rg': '5695007', 'cpf': '86096997228'}]</msg>
 <arg>${DOCS_LIST}</arg>
 <arg>${DOCS_LIST}</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.411025" elapsed="0.000594"/>
+<status status="PASS" start="2025-08-15T16:42:16.298323" elapsed="0.000212"/>
 </kw>
 <kw name="Generate Random String" owner="String">
-<msg time="2025-08-15T07:46:37.412027" level="INFO">${NUMERO_STR} = 954</msg>
+<msg time="2025-08-15T16:42:16.298801" level="INFO">${NUMERO_STR} = 417</msg>
 <var>${NUMERO_STR}</var>
 <arg>length=3</arg>
 <arg>chars=[NUMBERS]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.411785" elapsed="0.000317"/>
+<status status="PASS" start="2025-08-15T16:42:16.298625" elapsed="0.000232"/>
 </kw>
 <kw name="Convert To Integer" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.412422" level="INFO">${NUMERO} = 954</msg>
+<msg time="2025-08-15T16:42:16.299144" level="INFO">${NUMERO} = 417</msg>
 <var>${NUMERO}</var>
 <arg>${NUMERO_STR}</arg>
 <doc>Converts the given item to an integer number.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.412224" elapsed="0.000270"/>
+<status status="PASS" start="2025-08-15T16:42:16.298952" elapsed="0.000280"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.412851" level="INFO">${addr} = {'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 954, 'complement': 'Hospital do Coração'}</msg>
+<msg time="2025-08-15T16:42:16.299651" level="INFO">${addr} = {'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 417, 'complement': 'Hospital do Coração'}</msg>
 <var>${addr}</var>
 <arg>country=Brasil</arg>
 <arg>zipCode=61025639</arg>
@@ -320,28 +320,28 @@
 <arg>number=${NUMERO}</arg>
 <arg>complement=Hospital do Coração</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.412601" elapsed="0.000319"/>
+<status status="PASS" start="2025-08-15T16:42:16.299362" elapsed="0.000370"/>
 </kw>
 <kw name="Create List" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.413177" level="INFO">${ADDR_LIST} = [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 954, 'complement': 'Hospital do Coração'}]</msg>
+<msg time="2025-08-15T16:42:16.300023" level="INFO">${ADDR_LIST} = [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 417, 'complement': 'Hospital do Coração'}]</msg>
 <var>${ADDR_LIST}</var>
 <arg>${addr}</arg>
 <doc>Returns a list containing given items.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.413031" elapsed="0.000216"/>
+<status status="PASS" start="2025-08-15T16:42:16.299863" elapsed="0.000227"/>
 </kw>
 <kw name="Set Test Variable" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.413500" level="INFO">${ADDR_LIST} = [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 954, 'complement': 'Hospital do Coração'}]</msg>
+<msg time="2025-08-15T16:42:16.300354" level="INFO">${ADDR_LIST} = [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 417, 'complement': 'Hospital do Coração'}]</msg>
 <arg>${ADDR_LIST}</arg>
 <arg>${ADDR_LIST}</arg>
 <doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.413343" elapsed="0.000226"/>
+<status status="PASS" start="2025-08-15T16:42:16.300196" elapsed="0.000234"/>
 </kw>
-<doc>Gera dados válidos conforme o Swagger (fullName, birthDate, mail, phone, currentRole, documents[], address[]).</doc>
-<status status="PASS" start="2025-08-15T07:46:37.391723" elapsed="0.021922"/>
+<doc>Prepara dados válidos conforme o Swagger (fullName, birthDate, mail, phone, currentRole, documents[], address[]).</doc>
+<status status="PASS" start="2025-08-15T16:42:16.279200" elapsed="0.021307"/>
 </kw>
 <kw name="Montar Body Cliente (Valido)" owner="client">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.414336" level="INFO">${body} = {'fullName': 'Cliente vebefx', 'birthDate': '24082023', 'mail': 'vebefx.qa@exemplo.com', 'phone': '5591918011897', 'currentRole': 'ADMIN', 'documents': [{'rg': '7568911', 'cpf': '15651112650'}], 'addr...</msg>
+<msg time="2025-08-15T16:42:16.301200" level="INFO">${body} = {'fullName': 'Cliente ghhyxu', 'birthDate': '24082023', 'mail': 'ghhyxu.qa@exemplo.com', 'phone': '5591933354553', 'currentRole': 'ADMIN', 'documents': [{'rg': '5695007', 'cpf': '86096997228'}], 'addr...</msg>
 <var>${body}</var>
 <arg>fullName=${FULL_NAME}</arg>
 <arg>birthDate=${BIRTH_DATE}</arg>
@@ -351,88 +351,89 @@
 <arg>documents=${DOCS_LIST}</arg>
 <arg>address=${ADDR_LIST}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.414014" elapsed="0.000387"/>
+<status status="PASS" start="2025-08-15T16:42:16.300875" elapsed="0.000395"/>
 </kw>
 <return>
 <value>${body}</value>
-<status status="PASS" start="2025-08-15T07:46:37.414473" elapsed="0.000066"/>
+<status status="PASS" start="2025-08-15T16:42:16.301342" elapsed="0.000063"/>
 </return>
-<msg time="2025-08-15T07:46:37.414656" level="INFO">${body} = {'fullName': 'Cliente vebefx', 'birthDate': '24082023', 'mail': 'vebefx.qa@exemplo.com', 'phone': '5591918011897', 'currentRole': 'ADMIN', 'documents': [{'rg': '7568911', 'cpf': '15651112650'}], 'addr...</msg>
+<msg time="2025-08-15T16:42:16.301524" level="INFO">${body} = {'fullName': 'Cliente ghhyxu', 'birthDate': '24082023', 'mail': 'ghhyxu.qa@exemplo.com', 'phone': '5591933354553', 'currentRole': 'ADMIN', 'documents': [{'rg': '5695007', 'cpf': '86096997228'}], 'addr...</msg>
 <var>${body}</var>
-<doc>Monta o JSON conforme o Example do Swagger.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.413781" elapsed="0.000928"/>
+<doc>Monta o JSON exatamente como no Example do Swagger.</doc>
+<status status="PASS" start="2025-08-15T16:42:16.300638" elapsed="0.000941"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-08-15T07:46:37.414931" level="INFO">BODY /client: {'fullName': 'Cliente vebefx', 'birthDate': '24082023', 'mail': 'vebefx.qa@exemplo.com', 'phone': '5591918011897', 'currentRole': 'ADMIN', 'documents': [{'rg': '7568911', 'cpf': '15651112650'}], 'address': [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 954, 'complement': 'Hospital do Coração'}]}</msg>
+<msg time="2025-08-15T16:42:16.301808" level="INFO">BODY /client: {'fullName': 'Cliente ghhyxu', 'birthDate': '24082023', 'mail': 'ghhyxu.qa@exemplo.com', 'phone': '5591933354553', 'currentRole': 'ADMIN', 'documents': [{'rg': '5695007', 'cpf': '86096997228'}], 'address': [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': 417, 'complement': 'Hospital do Coração'}]}</msg>
 <arg>BODY /client: ${body}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-15T07:46:37.414803" elapsed="0.000203"/>
+<status status="PASS" start="2025-08-15T16:42:16.301677" elapsed="0.000206"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-08-15T07:46:38.273459" level="INFO">POST Request : url=https://api-suits.qacoders.dev.br/api/client 
+<msg time="2025-08-15T16:42:17.263776" level="INFO">POST Request : url=https://api-invictus.qacoders.dev.br/api/client 
  path_url=/api/client 
- headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODY0NTc1MDRmYTg4YmJlOTQ5NzdjODciLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRJRWhlaFc3cEc4QjZVVktOWHhBSUpldTBVZmtOajhDOGFnY1pCM1FGYkw2WFp4MGFRcG9DMiIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAwMS8wNy8yMDI1LCAxODo0Njo1NiBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4NjQ1NzUwNGZhODhiYmU5NDk3N2M4OCJ9XSwiX192IjowLCJpYXQiOjE3NTUyNDAzODgsImV4cCI6MTc1NTMyNjc4OH0.tUHwpCR4G_243g5ozO43kEt5NabrxaFf6gObMgeQGxU', 'Content-Length': '413'} 
- body=b'{"fullName": "Cliente vebefx", "birthDate": "24082023", "mail": "vebefx.qa@exemplo.com", "phone": "5591918011897", "currentRole": "ADMIN", "documents": [{"rg": "7568911", "cpf": "15651112650"}], "address": [{"country": "Brasil", "zipCode": "61025639", "city": "Bel\\u00e9m", "state": "PA", "district": "S\\u00e3o Br\\u00e1s", "street": "Rua 3 de Maio", "number": 954, "complement": "Hospital do Cora\\u00e7\\u00e3o"}]}' 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZDlhYzcxNWQ4OGE0Mjk3Y2ViZWQiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMWThKTE5vcEUwVFBKb2llR3dOak5lVWxxYUtPOVFEVE9DdjgxbU9tQW9KZnpNRXhWZVJJSyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAxMy8wOC8yMDI1LCAxNTozMDowMyBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY4OWNkOWFjNzE1ZDg4YTQyOTdjZWJlZSJ9XSwiX192IjowLCJpYXQiOjE3NTUyNzI1MjcsImV4cCI6MTc1NTM1ODkyN30.EGF6oQlcjY7o-IOWbDhndRMR5CX2_QKkR209yNbbGGs', 'Content-Length': '413'} 
+ body=b'{"fullName": "Cliente ghhyxu", "birthDate": "24082023", "mail": "ghhyxu.qa@exemplo.com", "phone": "5591933354553", "currentRole": "ADMIN", "documents": [{"rg": "5695007", "cpf": "86096997228"}], "address": [{"country": "Brasil", "zipCode": "61025639", "city": "Bel\\u00e9m", "state": "PA", "district": "S\\u00e3o Br\\u00e1s", "street": "Rua 3 de Maio", "number": 417, "complement": "Hospital do Cora\\u00e7\\u00e3o"}]}' 
  </msg>
-<msg time="2025-08-15T07:46:38.273844" level="INFO">POST Response : url=https://api-suits.qacoders.dev.br/api/client 
- status=400, reason=Bad Request 
- headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '54', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 06:46:29 GMT', 'Etag': 'W/"36-M4l1xIGcHRiondVYVGAZWN6Cf50"', 'X-Powered-By': 'Express'} 
- body=["O campo 'número' só pode conter apenas números."] 
+<msg time="2025-08-15T16:42:17.264357" level="INFO">POST Response : url=https://api-invictus.qacoders.dev.br/api/client 
+ status=201, reason=Created 
+ headers={'Access-Control-Allow-Origin': '*', 'Content-Length': '751', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 15 Aug 2025 15:42:08 GMT', 'Etag': 'W/"2ef-3DEP7ShaQ74eQ3jGT3SvMnGmHaM"', 'X-Powered-By': 'Express'} 
+ body={"msg":"Cliente criado com sucesso.","newClient":{"fullName":"Cliente ghhyxu","birthDate":"24082023","mail":"ghhyxu.qa@exemplo.com","phone":"5591933354553","currentRole":"ADMIN","documents":[{"cpf":"86096997228","rg":"5695007","_id":"689f5550715d88a4297cec51"}],"address":[{"country":"Brasil","zipCode":"61025639","city":"Belém","state":"PA","district":"São Brás","street":"Rua 3 de Maio","number":"417","complement":"Hospital do Coração","_id":"689f5550715d88a4297cec52"}],"audit":[{"registrationDate":"sexta-feira, 15/08/2025, 12:42:08 BRT","registeredBy":{"userId":"689cd9ac715d88a4297cebed","userLogin":"sysadmin@qacoders.com"},"registrationNumber":"QaCoders-0005","_id":"689f5550715d88a4297cec53"}],"_id":"689f5550715d88a4297cec50","__v":0}} 
  </msg>
-<msg time="2025-08-15T07:46:38.274171" level="FAIL">Url: https://api-suits.qacoders.dev.br/api/client Expected status: 400 != 201</msg>
+<msg time="2025-08-15T16:42:17.264776" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
 <var>${resposta}</var>
 <arg>alias=develop</arg>
 <arg>url=/client</arg>
 <arg>json=${body}</arg>
 <arg>expected_status=201</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="FAIL" start="2025-08-15T07:46:37.415097" elapsed="0.866268">Url: https://api-suits.qacoders.dev.br/api/client Expected status: 400 != 201</status>
+<status status="PASS" start="2025-08-15T16:42:16.301977" elapsed="0.962916"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
+<msg time="2025-08-15T16:42:17.266342" level="INFO">RESP /client: {'msg': 'Cliente criado com sucesso.', 'newClient': {'fullName': 'Cliente ghhyxu', 'birthDate': '24082023', 'mail': 'ghhyxu.qa@exemplo.com', 'phone': '5591933354553', 'currentRole': 'ADMIN', 'documents': [{'cpf': '86096997228', 'rg': '5695007', '_id': '689f5550715d88a4297cec51'}], 'address': [{'country': 'Brasil', 'zipCode': '61025639', 'city': 'Belém', 'state': 'PA', 'district': 'São Brás', 'street': 'Rua 3 de Maio', 'number': '417', 'complement': 'Hospital do Coração', '_id': '689f5550715d88a4297cec52'}], 'audit': [{'registrationDate': 'sexta-feira, 15/08/2025, 12:42:08 BRT', 'registeredBy': {'userId': '689cd9ac715d88a4297cebed', 'userLogin': 'sysadmin@qacoders.com'}, 'registrationNumber': 'QaCoders-0005', '_id': '689f5550715d88a4297cec53'}], '_id': '689f5550715d88a4297cec50', '__v': 0}}</msg>
 <arg>RESP /client: ${resposta.json()}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-08-15T07:46:38.281819" elapsed="0.000160"/>
+<status status="PASS" start="2025-08-15T16:42:17.265410" elapsed="0.001147"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-08-15T16:42:17.267856" level="INFO">${CLIENTE_ID} = 689f5550715d88a4297cec50</msg>
 <arg>${CLIENTE_ID}</arg>
 <arg>${resposta.json()["newClient"]["_id"]}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="NOT RUN" start="2025-08-15T07:46:38.282191" elapsed="0.000096"/>
+<status status="PASS" start="2025-08-15T16:42:17.266777" elapsed="0.001194"/>
 </kw>
-<doc>POST /client com body válido → espera 201 e guarda o _id.</doc>
-<status status="FAIL" start="2025-08-15T07:46:35.655390" elapsed="2.627513">Url: https://api-suits.qacoders.dev.br/api/client Expected status: 400 != 201</status>
+<doc>POST /client com body válido → espera 201 e guarda o _id para uso posterior.</doc>
+<status status="PASS" start="2025-08-15T16:42:14.750197" elapsed="2.517895"/>
 </kw>
 <tag>client</tag>
 <tag>funcional</tag>
 <tag>post</tag>
 <tag>smoke</tag>
-<status status="FAIL" start="2025-08-15T07:46:35.655038" elapsed="2.630162">Url: https://api-suits.qacoders.dev.br/api/client Expected status: 400 != 201</status>
+<status status="PASS" start="2025-08-15T16:42:14.749764" elapsed="2.518660"/>
 </test>
 <kw name="Log" owner="BuiltIn" type="TEARDOWN">
-<msg time="2025-08-15T07:46:38.287851" level="INFO">Finalizando testes de Client</msg>
+<msg time="2025-08-15T16:42:17.269986" level="INFO">Finalizando testes de Client</msg>
 <arg>Finalizando testes de Client</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-08-15T07:46:38.287436" elapsed="0.000600"/>
+<status status="PASS" start="2025-08-15T16:42:17.269709" elapsed="0.000430"/>
 </kw>
 <doc>Testes de Cadastro de Cliente (POST) – Funcional e Não Funcional</doc>
-<status status="FAIL" start="2025-08-15T07:46:35.552692" elapsed="2.735452"/>
+<status status="PASS" start="2025-08-15T16:42:14.679896" elapsed="2.590346"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1" skip="0">client</stat>
-<stat pass="0" fail="1" skip="0">funcional</stat>
-<stat pass="0" fail="1" skip="0">post</stat>
-<stat pass="0" fail="1" skip="0">smoke</stat>
+<stat pass="1" fail="0" skip="0">client</stat>
+<stat pass="1" fail="0" skip="0">funcional</stat>
+<stat pass="1" fail="0" skip="0">post</stat>
+<stat pass="1" fail="0" skip="0">smoke</stat>
 </tag>
 <suite>
-<stat name="Client" id="s1" pass="0" fail="1" skip="0">Client</stat>
+<stat name="Client" id="s1" pass="1" fail="0" skip="0">Client</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-08-15T07:46:35.560908" level="ERROR">Error in file '/Users/alissontomazelli/Documents/Invictus/invictus-academyt14-api-robot/resources/client.resource' on line 209: Creating keyword 'Remover Cliente por Id (Sucesso)' failed: Keyword with same name defined multiple times.</msg>
-<msg time="2025-08-15T07:46:35.653520" level="WARN">Error in file '/Users/alissontomazelli/Documents/Invictus/invictus-academyt14-api-robot/resources/login.resource' on line 24: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-08-15T16:42:14.747775" level="WARN">Error in file '/Users/alissontomazelli/Documents/Invictus/invictus-academyt14-api-robot/resources/login.resource' on line 24: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>
