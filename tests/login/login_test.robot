@@ -7,11 +7,9 @@ Resource        ../../resources/user.resource
 Logar com Sysadmin
     Login com sysadmin
 
-Validar Token Sysadmin    
-    Validar o token sysadmin e gravar autorização 
+# Validar Token Sysadmin    
+#     Validar o token sysadmin e gravar autorização
 
-#Teste Novo usuario
-    #Cadastrar novo usuario  
 Listar usuario
     Listagem de Usuário  
 
