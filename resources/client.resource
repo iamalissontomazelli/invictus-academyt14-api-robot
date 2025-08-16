@@ -8,9 +8,8 @@ Resource             login.resource      # importa Login com sysadmin e ${baseUR
 
 *** Keywords ***
 
-# ============================================================
 # ---------------- Helpers de documentos --------------------
-# ============================================================
+
 
 Gerar CPF Válido
     [Documentation]    Gera CPF válido (11 dígitos com DV) como string.
@@ -39,9 +38,8 @@ Gerar RG Aleatorio
     ${rg}=    Generate Random String    length=7    chars=[NUMBERS]
     RETURN     ${rg}
 
-# ============================================================
 # ---------------- Helpers principais -----------------------
-# ============================================================
+
 
 Criar Cliente - Dados Válidos
     [Documentation]    Prepara dados válidos conforme o Swagger (fullName, birthDate, mail, phone, currentRole, documents[], address[]).
@@ -54,7 +52,7 @@ Criar Cliente - Dados Válidos
     # Campos básicos
     Set Test Variable    ${FULL_NAME}       Cliente ${rlet}
     Set Test Variable    ${BIRTH_DATE}      24082023          # somente dígitos (formato aceito pelo backend)
-    Set Test Variable    ${MAIL}            ${rlet}.qa@exemplo.com
+    Set Test Variable    ${MAIL}            ${rlet}.qa@invictus.com
     Set Test Variable    ${PHONE}           5591${rnum}       # numérico
     Set Test Variable    ${CURRENT_ROLE}    ADMIN
 
@@ -80,9 +78,9 @@ Criar Cliente - Dados Válidos
     ${ADDR_LIST}=       Create List          ${addr}
     Set Test Variable   ${ADDR_LIST}         ${ADDR_LIST}
 
-# ============================================================
+
 # ---------------- Sessão com autenticação ------------------
-# ============================================================
+
 
 Criar Sessão Autenticada Client
     [Documentation]    Realiza login e cria a sessão com Authorization para chamadas autenticadas.
@@ -92,10 +90,9 @@ Criar Sessão Autenticada Client
     ...                Content-Type=application/json
     ...                Authorization=${TOKEN}
     Create Session     alias=develop        url=${baseURL}    headers=${headers}    verify=true
-
-# ============================================================
+=
 # ---------------- Montagem do body -------------------------
-# ============================================================
+
 
 Montar Body Cliente (Valido)
     [Documentation]    Monta o JSON exatamente como no Example do Swagger.
@@ -109,9 +106,8 @@ Montar Body Cliente (Valido)
     ...          address=${ADDR_LIST}
     RETURN       ${body}
 
-# ============================================================
 # ---------------- POST (criar) ------------------------------
-# ============================================================
+
 
 Cadastrar Cliente com Sucesso
     [Documentation]    POST /client com body válido → espera 201 e guarda o _id para uso posterior.
@@ -126,9 +122,9 @@ Cadastrar Cliente com Sucesso
     # Ajuste o caminho do ID se sua API retornar diferente
     Set Suite Variable    ${CLIENTE_ID}    ${resposta.json()["newClient"]["_id"]}
 
-# ============================================================
+
 # ---------------- NEGATIVOS (validação) --------------------
-# ============================================================
+
 
 Cliente com Email Inválido
     [Documentation]    Envia e-mail inválido (mantém o resto válido) → espera 400.
@@ -146,9 +142,8 @@ Cliente com Telefone Inválido
     Set To Dictionary    ${body}    phone=(11) 99999-9999
     Run Keyword And Expect Error    HTTPError: 400*    POST On Session    alias=develop    url=/client    json=${body}
 
-# ============================================================
 # ---------------- GET (listar/buscar) ----------------------
-# ============================================================
+
 
 Listar Clientes (Sucesso)
     [Documentation]    GET /client → 200
@@ -169,9 +164,7 @@ Buscar Cliente por Id Inválido (400/404)
     ${id_invalido}=    Set Variable    660340e40&17ca8b3bf6107d8
     Run Keyword And Expect Error    HTTPError: 4*    GET On Session    alias=develop    url=/client/${id_invalido}
 
-# ============================================================
 # ---------------- PUT (atualizar) --------------------------
-# ============================================================
 
 Atualizar Cliente por Id (Sucesso)
     [Documentation]    PUT /client/{id} com body válido → espera 200 (ajuste se seu backend usar 201).
@@ -221,9 +214,7 @@ Atualizar Cliente com Body Inválido (400)
     ...                address=${EMPTY}
     Run Keyword And Expect Error    HTTPError: 400*    PUT On Session    alias=develop    url=/client/${CLIENTE_ID}    json=${body}
 
-# ============================================================
 # ---------------- DELETE (remover) --------------------------
-# ============================================================
 
 Remover Cliente por Id (Sucesso)
     [Documentation]    DELETE /client/{id} → remove o cliente e valida que não existe mais.
@@ -240,10 +231,7 @@ Remover Cliente por Id (Sucesso)
     Run Keyword And Expect Error    HTTPError: 404*    GET On Session    alias=develop    url=/client/${CLIENTE_ID}
 
 
-
-# ============================================================
 # ---------------- NEGATIVO: cargo não alfabético -----------
-# ============================================================
 
 Cliente com Cargo Não Alfabético
     [Documentation]    Envia currentRole com números/símbolos (mantém resto válido) → espera 400.
@@ -253,3 +241,68 @@ Cliente com Cargo Não Alfabético
     # quebra apenas o campo de cargo
     Set To Dictionary    ${body}    currentRole=Dev123##
     Run Keyword And Expect Error    HTTPError: 400*    POST On Session    alias=develop    url=/client    json=${body}
+
+
+
+# ============================================================
+# ------------------- Regras de negócio ---------------------
+# ============================================================
+
+Cargo com Valor Alfabético Deve Aprovar
+    [Documentation]    Envia currentRole somente com letras → deve aprovar (201).
+    Criar Sessão Autenticada Client
+    Criar Cliente - Dados Válidos
+    ${body}=    Montar Body Cliente (Valido)
+    Set To Dictionary    ${body}    currentRole=Manager
+    ${resp}=    POST On Session    alias=develop    url=/client    json=${body}
+    Status Should Be    201    ${resp}
+    Log To Console    Cargo alfabético aceito: ${resp.json()}
+
+Cargo com Valor Não Alfabético Deve Reprovar
+    [Documentation]    Envia currentRole com números ou símbolos → deve reprovar (400).
+    Criar Sessão Autenticada Client
+    Criar Cliente - Dados Válidos
+    ${body}=    Montar Body Cliente (Valido)
+    Set To Dictionary    ${body}    currentRole=Gerente123
+    Run Keyword And Expect Error    HTTPError: 400*    POST On Session    alias=develop    url=/client    json=${body}
+
+
+
+
+# ============================================================
+# --------- RAMO DE ATIVIDADE (apenas alfabético) ------------
+# ============================================================
+
+Ramo Alfabético Deve Aprovar
+    [Documentation]    POST /client com businessBranch=${valor} (apenas letras/acentos/espaços) → espera 200/201.
+    [Arguments]    ${valor}
+
+    # 1) Preparação
+    Criar Sessão Autenticada Client
+    Criar Cliente - Dados Válidos
+    ${body}=    Montar Body Cliente (Valido)
+    Set To Dictionary    ${body}    businessBranch=${valor}
+
+    # 2) Execução
+    ${resp}=    POST On Session    alias=develop    url=/client    json=${body}
+
+    # 3) Status esperado (sem 'Run Keyword Unless')
+    IF    ${resp.status_code} in [200, 201]
+        Log To Console    ✅ Cliente criado com ramo '${valor}', status ${resp.status_code}
+    ELSE
+        Fail    Esperado 200/201, veio ${resp.status_code}. Body: ${resp.content}
+    END
+
+    # 4) Validação do eco, se existir (sem indexar no IF)
+    ${j}=    Set Variable    ${resp.json()}
+    IF    'newClient' in ${j}
+        ${nc}=        Get From Dictionary    ${j}    newClient
+        IF    'businessBranch' in ${nc}
+            ${branch}=    Get From Dictionary    ${nc}    businessBranch
+            Should Be Equal As Strings    ${branch}    ${valor}
+        ELSE
+            Log To Console    [AVISO] 'newClient' veio sem 'businessBranch'. JSON: ${j}
+        END
+    ELSE
+        Log To Console    [AVISO] Campo 'newClient' não retornado no corpo. JSON: ${j}
+    END

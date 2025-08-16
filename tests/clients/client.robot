@@ -6,7 +6,7 @@ Suite Teardown       Log    Finalizando testes de Client
 
 *** Test Cases ***
 
-##__Funcional__##
+## 25163 - CADASTRAR CLIENTE COM SUCESSO
 Cadastrar cliente com sucesso
     [Tags]    client    post    funcional    smoke
     Cadastrar Cliente com Sucesso
@@ -56,5 +56,28 @@ Remover cliente por id
 
 
 
+# 25307 - CARGO SOMENTE TEXTO ALFABÉTICO
+
+POST - Cargo somente texto alfabético (sucesso)
+    [Tags]    client    post    funcional    cargo
+    Cargo com Valor Alfabético Deve Aprovar
+
+POST - Cargo com números ou símbolos (erro)
+    [Tags]    client    post    nao_funcional    cargo
+    Cargo com Valor Não Alfabético Deve Reprovar
 
 
+
+
+
+# 25310 - RAMO DE ATIVIDADE (somente alfabético)
+
+POST - Ramo de atividade somente texto alfabético (sucesso)
+    [Tags]    client    post    funcional    ramo
+    [Template]    Ramo Alfabético Deve Aprovar
+    Tecnologia da Informação
+    Comércio Varejista
+    Serviços Gerais
+    Indústria Metalúrgica
+    Educação Básica
+    
