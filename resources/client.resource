@@ -90,7 +90,7 @@ Criar Sessão Autenticada Client
     ...                Content-Type=application/json
     ...                Authorization=${TOKEN}
     Create Session     alias=develop        url=${baseURL}    headers=${headers}    verify=true
-=
+
 # ---------------- Montagem do body -------------------------
 
 
@@ -124,7 +124,7 @@ Cadastrar Cliente com Sucesso
 
 
 # ---------------- NEGATIVOS (validação) --------------------
-
+    
 
 Cliente com Email Inválido
     [Documentation]    Envia e-mail inválido (mantém o resto válido) → espera 400.
@@ -163,6 +163,58 @@ Buscar Cliente por Id Inválido (400/404)
     [Documentation]    GET /client/{id inválido} → espera 400 ou 404
     ${id_invalido}=    Set Variable    660340e40&17ca8b3bf6107d8
     Run Keyword And Expect Error    HTTPError: 4*    GET On Session    alias=develop    url=/client/${id_invalido}
+
+
+# Validando numero de cliente
+
+
+#Status 200
+Cliente Id Válido Deve Retornar 200
+    [Documentation]    Cria cliente, pega ${CLIENTE_ID} e valida GET /client/{id} = 200.
+    # Pré-condição: criar e capturar ID
+    Cadastrar Cliente com Sucesso
+    Criar Sessão Autenticada Client
+
+    ${resp}=   GET On Session    alias=develop    url=/client/${CLIENTE_ID}
+    Status Should Be    200    ${resp}
+    Should Be Equal As Strings    ${CLIENTE_ID}    ${resp.json()["client"]["_id"]}
+
+
+# Status 400
+Cliente Id Malformado Deve Reprovar
+    [Documentation]    Exercita IDs com tamanho inválido ou não-hex → espera 400.
+    Criar Sessão Autenticada Client
+
+    ${ids_invalidos}=    Create List
+    ...    12345                         # muito curto
+    ...    0123456789abcdef0123456789    # muito longo (26)
+    ...    0123456789abcdef012345zz      # não-hex (zz)
+
+    FOR    ${id}    IN    @{ids_invalidos}
+        ${res}=    GET On Session    alias=develop    url=/client/${id}
+        IF    ${res.status_code} == 400
+            Log To Console    ✅ Malformado '${id}' → 400
+        ELSE
+            Fail    Esperado 400 para ID malformado '${id}', veio ${res.status_code}. Body: ${res.content}
+        END
+    END
+
+# Status 404
+
+Cliente Id Válido Porem Inexistente Deve Reprovar
+    [Documentation]    Usa um 24-hex aleatório (provavelmente não existe) → espera 404.
+    Criar Sessão Autenticada Client
+    ${id_fake}=    Gerar ObjectId Aleatorio
+
+    ${res}=    GET On Session    alias=develop    url=/client/${id_fake}
+    IF    ${res.status_code} == 404
+        Log To Console    ✅ Inexistente '${id_fake}' → 404
+    ELSE
+        Fail    Esperado 404 para ID inexistente, veio ${res.status_code}. Body: ${res.content}
+    END
+
+
+
 
 # ---------------- PUT (atualizar) --------------------------
 

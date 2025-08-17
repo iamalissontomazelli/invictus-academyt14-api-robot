@@ -7,10 +7,19 @@ Suite Teardown       Log    Finalizando testes de Client
 *** Test Cases ***
 
 # ---------------- GET (listar/buscar) ----------------------
-# em construcao
 
+# ====== VALIDAÇÃO DE CLIENT ID ======
+GET - Cliente id válido existente (200)
+    [Tags]    client    get    id    positivo
+    Cliente Id Válido Deve Retornar 200
 
+GET - Cliente id malformado (400)
+    [Tags]    client    get    id    negativo
+    Cliente Id Malformado Deve Reprovar
 
+GET - Cliente id válido porém inexistente (404)
+    [Tags]    client    get    id    negativo
+    Cliente Id Válido Porem Inexistente Deve Reprovar
 
 # ---------------- Metodo POST ( Cadastro de cliente ) ----------------------
 ## 25163 - CADASTRAR CLIENTE COM SUCESSO
@@ -62,7 +71,6 @@ Cliente campos obrigatórios vazios
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Campos Obrigatórios Vazios
 
-
 # 25310 - RAMO DE ATIVIDADE (somente alfabético)
 
 POST - Ramo de atividade somente texto alfabético (sucesso)
@@ -74,9 +82,27 @@ POST - Ramo de atividade somente texto alfabético (sucesso)
     Indústria Metalúrgica
     Educação Básica
 
+# ---------------- Metodo PUT (Atualizar/Editar Dados de Cliente) --------------------------
 
 
-# ---------------- Metodo PUT (atualizar) --------------------------
+# 25369 - Editar Cadastro de cliente
+
+PUT - Atualizar cliente com sucesso
+    [Tags]    client    put    funcional
+    Atualizar Cliente por Id (Sucesso)
+
+PUT - Atualizar cliente com body inválido (400/422)
+    [Tags]    client    put    negativo
+    Atualizar Cliente com Body Inválido (400)
+
+PUT - Atualizar cliente com id malformado (400)
+    [Tags]    client    put    negativo
+    Atualizar Cliente com Id Malformado (400)
+
+PUT - Atualizar cliente inexistente (404)
+    [Tags]    client    put    negativo
+    Atualizar Cliente Inexistente (404)
+
 
 
 
