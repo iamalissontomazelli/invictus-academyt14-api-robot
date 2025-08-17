@@ -306,3 +306,19 @@ Ramo Alfabético Deve Aprovar
     ELSE
         Log To Console    [AVISO] Campo 'newClient' não retornado no corpo. JSON: ${j}
     END
+
+    
+
+Cliente Já Cadastrado no Sistema
+    [Documentation]    Cria um cliente e tenta cadastrar novamente com os mesmos dados → espera 409.
+    # 1) Login e montar body fixo para o par 1ª/2ª requisição
+    Criar Sessão Autenticada Client
+    Criar Cliente - Dados Válidos
+    ${body}=    Montar Body Cliente (Valido)
+
+    # 2) Primeira criação deve passar (201)
+    ${resp1}=    POST On Session    alias=develop    url=/client    json=${body}    expected_status=201
+    Log    Primeiro cadastro OK: ${resp1.json()}
+
+    # 3) Segunda criação com o MESMO body deve falhar com 409
+    Run Keyword And Expect Error    HTTPError: 409*    POST On Session    alias=develop    url=/client    json=${body}

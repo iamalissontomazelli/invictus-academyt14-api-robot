@@ -6,10 +6,26 @@ Suite Teardown       Log    Finalizando testes de Client
 
 *** Test Cases ***
 
+# ---------------- GET (listar/buscar) ----------------------
+
+
+
+
+
+# ---------------- Metodo POST ( Cadastro de cliente ) ----------------------
 ## 25163 - CADASTRAR CLIENTE COM SUCESSO
 Cadastrar cliente com sucesso
     [Tags]    client    post    funcional    smoke
     Cadastrar Cliente com Sucesso
+
+Cliente duplicado (409)
+    [Tags]    client    post    nao_funcional    duplicado
+    Cliente Já Cadastrado no Sistema
+
+# Negativo: cargo com números/símbolos
+POST - Cliente cargo não alfabético
+    [Tags]    client    post    nao_funcional    validacao
+    Cliente com Cargo Não Alfabético
 
 ##__Não Funcional__##
 Cliente telefone inválido (não numérico)
@@ -20,15 +36,16 @@ Cliente email inválido
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Email Inválido
 
-# Positivo (já cobre cargo alfabético)
-POST - Cadastrar cliente com sucesso
-    [Tags]    client    post    funcional    smoke
-    Cadastrar Cliente com Sucesso
+# 25307 - CARGO SOMENTE TEXTO ALFABÉTICO
 
-# Negativo: cargo com números/símbolos
-POST - Cliente cargo não alfabético
-    [Tags]    client    post    nao_funcional    validacao
-    Cliente com Cargo Não Alfabético
+POST - Cargo somente texto alfabético (sucesso)
+    [Tags]    client    post    funcional    cargo
+    Cargo com Valor Alfabético Deve Aprovar
+
+POST - Cargo com números ou símbolos (erro)
+    [Tags]    client    post    nao_funcional    cargo
+    Cargo com Valor Não Alfabético Deve Reprovar
+
 Cliente ramo não alfabético
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Ramo Não Alfabético
@@ -45,30 +62,6 @@ Cliente campos obrigatórios vazios
     [Tags]    client    post    nao_funcional    validacao
     Cliente com Campos Obrigatórios Vazios
 
-Cliente duplicado (409)
-    [Tags]    client    post    nao_funcional    duplicado
-    Cliente Já Cadastrado no Sistema
-
-Remover cliente por id
-    [Tags]    client    delete    funcional
-    Remover Cliente por Id (Sucesso)
-
-
-
-
-# 25307 - CARGO SOMENTE TEXTO ALFABÉTICO
-
-POST - Cargo somente texto alfabético (sucesso)
-    [Tags]    client    post    funcional    cargo
-    Cargo com Valor Alfabético Deve Aprovar
-
-POST - Cargo com números ou símbolos (erro)
-    [Tags]    client    post    nao_funcional    cargo
-    Cargo com Valor Não Alfabético Deve Reprovar
-
-
-
-
 
 # 25310 - RAMO DE ATIVIDADE (somente alfabético)
 
@@ -80,4 +73,29 @@ POST - Ramo de atividade somente texto alfabético (sucesso)
     Serviços Gerais
     Indústria Metalúrgica
     Educação Básica
-    
+
+
+
+# ---------------- Metodo PUT (atualizar) --------------------------
+
+
+
+
+
+
+
+
+
+
+
+Remover cliente por id
+    [Tags]    client    delete    funcional
+    Remover Cliente por Id (Sucesso)
+
+
+
+
+
+
+
+
