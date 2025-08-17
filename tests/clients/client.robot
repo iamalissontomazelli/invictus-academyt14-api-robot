@@ -7,7 +7,7 @@ Suite Teardown       Log    Finalizando testes de Client
 *** Test Cases ***
 
 # ---------------- GET (listar/buscar) ----------------------
-
+# em construcao
 
 
 
