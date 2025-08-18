@@ -141,8 +141,15 @@ Cliente com Telefone Inválido
     ${body}=        Montar Body Cliente (Valido)
     Set To Dictionary    ${body}    phone=(11) 99999-9999
     Run Keyword And Expect Error    HTTPError: 400*    POST On Session    alias=develop    url=/client    json=${body}
-
-# ---------------- GET (listar/buscar) ----------------------
+# ---------------- GET (listar) ----------------------
+Listar Clientes (GET)
+    [Documentation]    GET /client esperando lista pura. Imprime total e retorna lista.
+    Criar Sessão Autenticada Client
+    ${resp}=    GET On Session    alias=develop    url=/client    expected_status=200
+    ${lista}=   Set Variable    ${resp.json()}
+    ${qtd}=     Get Length      ${lista}
+    Log To Console     Total de clientes: ${qtd}
+    [Return]    ${lista}
 
 
 Listar Clientes (Sucesso)
@@ -166,9 +173,6 @@ Buscar Cliente por Id Inválido (400/404)
 
 
 # Validando numero de cliente
-
-
-#Status 200
 Cliente Id Válido Deve Retornar 200
     [Documentation]    Cria cliente, pega ${CLIENTE_ID} e valida GET /client/{id} = 200.
     # Pré-condição: criar e capturar ID
@@ -269,19 +273,13 @@ Atualizar Cliente com Body Inválido (400)
 # ---------------- DELETE (remover) --------------------------
 
 Remover Cliente por Id (Sucesso)
-    [Documentation]    DELETE /client/{id} → remove o cliente e valida que não existe mais.
-    # 1) Pré-condição: cria cliente e guarda ${CLIENTE_ID}
+    [Documentation]    Cria cliente, deleta e valida remoção (404).
+    Criar Sessão Autenticada Client
     Cadastrar Cliente com Sucesso
 
-    # 2) Executa o DELETE aceitando 200 ou 204 (alguns backends variam)
-    ${ok200}=    Run Keyword And Return Status
-    ...          DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=200
-    Run Keyword If    not ${ok200}
-    ...    DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=204
+    DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=200
 
-    # 3) Confirma remoção: GET pelo mesmo id deve retornar 404
     Run Keyword And Expect Error    HTTPError: 404*    GET On Session    alias=develop    url=/client/${CLIENTE_ID}
-
 
 # ---------------- NEGATIVO: cargo não alfabético -----------
 

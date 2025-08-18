@@ -7,8 +7,11 @@ Suite Teardown       Log    Finalizando testes de Client
 *** Test Cases ***
 
 # ---------------- GET (listar/buscar) ----------------------
+GET - Listar clientes (200) e exibir primeiros itens
+    [Tags]    client    get    lista    positivo
+    ${lista}=    Listar Clientes (GET)
+    Should Not Be Empty    ${lista}
 
-# ====== VALIDAÇÃO DE CLIENT ID ======
 GET - Cliente id válido existente (200)
     [Tags]    client    get    id    positivo
     Cliente Id Válido Deve Retornar 200
@@ -83,8 +86,6 @@ POST - Ramo de atividade somente texto alfabético (sucesso)
     Educação Básica
 
 # ---------------- Metodo PUT (Atualizar/Editar Dados de Cliente) --------------------------
-
-
 # 25369 - Editar Cadastro de cliente
 
 PUT - Atualizar cliente com sucesso
@@ -103,17 +104,7 @@ PUT - Atualizar cliente inexistente (404)
     [Tags]    client    put    negativo
     Atualizar Cliente Inexistente (404)
 
-
-
-
-
-
-
-
-
-
-
-
+# ---------------- DELETE --------------------------
 Remover cliente por id
     [Tags]    client    delete    funcional
     Remover Cliente por Id (Sucesso)
