@@ -90,7 +90,7 @@ Criar Sessão Autenticada Client
     ...                Content-Type=application/json
     ...                Authorization=${TOKEN}
     Create Session     alias=develop        url=${baseURL}    headers=${headers}    verify=true
-=
+
 # ---------------- Montagem do body -------------------------
 
 
@@ -124,7 +124,7 @@ Cadastrar Cliente com Sucesso
 
 
 # ---------------- NEGATIVOS (validação) --------------------
-
+    
 
 Cliente com Email Inválido
     [Documentation]    Envia e-mail inválido (mantém o resto válido) → espera 400.
@@ -141,8 +141,15 @@ Cliente com Telefone Inválido
     ${body}=        Montar Body Cliente (Valido)
     Set To Dictionary    ${body}    phone=(11) 99999-9999
     Run Keyword And Expect Error    HTTPError: 400*    POST On Session    alias=develop    url=/client    json=${body}
-
-# ---------------- GET (listar/buscar) ----------------------
+# ---------------- GET (listar) ----------------------
+Listar Clientes (GET)
+    [Documentation]    GET /client esperando lista pura. Imprime total e retorna lista.
+    Criar Sessão Autenticada Client
+    ${resp}=    GET On Session    alias=develop    url=/client    expected_status=200
+    ${lista}=   Set Variable    ${resp.json()}
+    ${qtd}=     Get Length      ${lista}
+    Log To Console     Total de clientes: ${qtd}
+    [Return]    ${lista}
 
 
 Listar Clientes (Sucesso)
@@ -163,6 +170,55 @@ Buscar Cliente por Id Inválido (400/404)
     [Documentation]    GET /client/{id inválido} → espera 400 ou 404
     ${id_invalido}=    Set Variable    660340e40&17ca8b3bf6107d8
     Run Keyword And Expect Error    HTTPError: 4*    GET On Session    alias=develop    url=/client/${id_invalido}
+
+
+# Validando numero de cliente
+Cliente Id Válido Deve Retornar 200
+    [Documentation]    Cria cliente, pega ${CLIENTE_ID} e valida GET /client/{id} = 200.
+    # Pré-condição: criar e capturar ID
+    Cadastrar Cliente com Sucesso
+    Criar Sessão Autenticada Client
+
+    ${resp}=   GET On Session    alias=develop    url=/client/${CLIENTE_ID}
+    Status Should Be    200    ${resp}
+    Should Be Equal As Strings    ${CLIENTE_ID}    ${resp.json()["client"]["_id"]}
+
+
+# Status 400
+Cliente Id Malformado Deve Reprovar
+    [Documentation]    Exercita IDs com tamanho inválido ou não-hex → espera 400.
+    Criar Sessão Autenticada Client
+
+    ${ids_invalidos}=    Create List
+    ...    12345                         # muito curto
+    ...    0123456789abcdef0123456789    # muito longo (26)
+    ...    0123456789abcdef012345zz      # não-hex (zz)
+
+    FOR    ${id}    IN    @{ids_invalidos}
+        ${res}=    GET On Session    alias=develop    url=/client/${id}
+        IF    ${res.status_code} == 400
+            Log To Console    ✅ Malformado '${id}' → 400
+        ELSE
+            Fail    Esperado 400 para ID malformado '${id}', veio ${res.status_code}. Body: ${res.content}
+        END
+    END
+
+# Status 404
+
+Cliente Id Válido Porem Inexistente Deve Reprovar
+    [Documentation]    Usa um 24-hex aleatório (provavelmente não existe) → espera 404.
+    Criar Sessão Autenticada Client
+    ${id_fake}=    Gerar ObjectId Aleatorio
+
+    ${res}=    GET On Session    alias=develop    url=/client/${id_fake}
+    IF    ${res.status_code} == 404
+        Log To Console    ✅ Inexistente '${id_fake}' → 404
+    ELSE
+        Fail    Esperado 404 para ID inexistente, veio ${res.status_code}. Body: ${res.content}
+    END
+
+
+
 
 # ---------------- PUT (atualizar) --------------------------
 
@@ -217,19 +273,13 @@ Atualizar Cliente com Body Inválido (400)
 # ---------------- DELETE (remover) --------------------------
 
 Remover Cliente por Id (Sucesso)
-    [Documentation]    DELETE /client/{id} → remove o cliente e valida que não existe mais.
-    # 1) Pré-condição: cria cliente e guarda ${CLIENTE_ID}
+    [Documentation]    Cria cliente, deleta e valida remoção (404).
+    Criar Sessão Autenticada Client
     Cadastrar Cliente com Sucesso
 
-    # 2) Executa o DELETE aceitando 200 ou 204 (alguns backends variam)
-    ${ok200}=    Run Keyword And Return Status
-    ...          DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=200
-    Run Keyword If    not ${ok200}
-    ...    DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=204
+    DELETE On Session    alias=develop    url=/client/${CLIENTE_ID}    expected_status=200
 
-    # 3) Confirma remoção: GET pelo mesmo id deve retornar 404
     Run Keyword And Expect Error    HTTPError: 404*    GET On Session    alias=develop    url=/client/${CLIENTE_ID}
-
 
 # ---------------- NEGATIVO: cargo não alfabético -----------
 
@@ -306,3 +356,19 @@ Ramo Alfabético Deve Aprovar
     ELSE
         Log To Console    [AVISO] Campo 'newClient' não retornado no corpo. JSON: ${j}
     END
+
+    
+
+Cliente Já Cadastrado no Sistema
+    [Documentation]    Cria um cliente e tenta cadastrar novamente com os mesmos dados → espera 409.
+    # 1) Login e montar body fixo para o par 1ª/2ª requisição
+    Criar Sessão Autenticada Client
+    Criar Cliente - Dados Válidos
+    ${body}=    Montar Body Cliente (Valido)
+
+    # 2) Primeira criação deve passar (201)
+    ${resp1}=    POST On Session    alias=develop    url=/client    json=${body}    expected_status=201
+    Log    Primeiro cadastro OK: ${resp1.json()}
+
+    # 3) Segunda criação com o MESMO body deve falhar com 409
+    Run Keyword And Expect Error    HTTPError: 409*    POST On Session    alias=develop    url=/client    json=${body}

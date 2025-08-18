@@ -26,5 +26,5 @@ Login com sysadmin
 
 Criar Sessão autorizada
     ${headers}=      Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session   alias=develop        url=${baseURL}            headers=${headers}
+    Create Session   alias=develop        url=${baseURL}            headers=${headers}    verify=True
 
