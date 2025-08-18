@@ -491,7 +491,7 @@ Logradouro Máximo 50 Caracteres
     Log    ${resposta.json()}
     Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' deve ter no máximo 50 caracteres.
 
-*** Keywords ***
+
 Atualizar Company Com Sucesso
     [Arguments]    ${company_id}
     ${TOKEN}       Login com sysadmin
@@ -502,14 +502,16 @@ Atualizar Company Com Sucesso
     ${rand_nome}           Generate Random String    6    chars=[LOWER]
     ${rand_matriz}         Generate Random String    6    chars=[LOWER]
     ${rand_responsavel}    Generate Random String    6    chars=[LOWER]
-    ${rand_telefone}       Set Variable    5511${Generate Random String 9 chars=[NUMBERS]}
+    ${rand_telefone_num}   Generate Random String    9    chars=[NUMBERS]
+    ${rand_telefone}       Set Variable    5511${rand_telefone_num}
     ${rand_email}          Set Variable    ${rand_nome}@teste.com
     ${rand_servico}        Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}           Generate Random String    14   chars=[NUMBERS]   # <-- gera antes
 
     # Criar corpo da requisição
     ${body}    Create Dictionary
     ...    corporateName=Empresa ${rand_nome}
-    ...    registerCompany=${Generate Random String 14 chars=[NUMBERS]}
+    ...    registerCompany=${rand_cnpj}  # <-- usa a variável gerada
     ...    matriz=Matriz ${rand_matriz}
     ...    responsibleContact=Fulano ${rand_responsavel}
     ...    telephone=${rand_telefone}
@@ -521,6 +523,8 @@ Atualizar Company Com Sucesso
     ${resposta}    PUT On Session    alias=develop    url=/company/${company_id}    json=${body}    expected_status=200
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
+
+
 
 
 

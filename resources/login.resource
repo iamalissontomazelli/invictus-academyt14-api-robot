@@ -6,7 +6,7 @@ Library              SeleniumLibrary
 Library              String
 
 *** Variables ***
-${baseURL}           https://api-shogun.qacoders.dev.br/api/
+${baseURL}           https://api-invictus.qacoders.dev.br/api/
 
 *** Keywords ***
 Criar Sessão
