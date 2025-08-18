@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Arquivo das Bibliotecas
+Documentation       
 
 Library              RequestsLibrary
 Library              SeleniumLibrary

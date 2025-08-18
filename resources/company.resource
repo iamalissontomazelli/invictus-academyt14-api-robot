@@ -10,7 +10,6 @@ Resource    login.resource
 *** Keywords ***
 
 Criar Company
-    # Gerar nome e sobrenome só com letras minúsculas
     ${nome1_raw}    Generate Random String    length=6    chars=[LOWER]
     ${nome1}        Convert To Title Case    ${nome1_raw}
 
@@ -19,14 +18,13 @@ Criar Company
 
     ${responsavel}  Set Variable             ${nome1} ${nome2}
 
-    # Validar formato do responsável para evitar erro na API
     Should Match Regexp    ${responsavel}    ^[A-Z][a-z]+ [A-Z][a-z]+$
 
-    # Telefone aleatório
+    
     ${telefone_aleatorio}  Generate Random String    length=9    chars=[NUMBERS]
     ${telefone_random}     Set Variable             5511${telefone_aleatorio}
 
-    # Número e endereço randomizado
+    
     ${numero_random}       Evaluate    random.randint(1, 9999)    modules=random
     ${cep_random}          Evaluate    random.choice(["04777001", "01001000", "12345678"])    modules=random
     ${cidade_random}       Evaluate    random.choice(["São Paulo", "Rio de Janeiro", "Curitiba"])    modules=random
@@ -38,7 +36,7 @@ Criar Company
     ${complemento_numero}  Evaluate    random.randint(1, 500)    modules=random
     ${complemento_random}  Set Variable             Apt ${complemento_numero}
 
-    # Criar corpo do request
+   
     ${body}    Create Dictionary
     ...    corporateName=Empresa ${nome1}
     ...    registerCompany=12345678000199
@@ -79,7 +77,7 @@ Cadastrar Company Sem Nome
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
     
     ${body}    Criar Company
-    Remove From Dictionary    ${body}    corporateName   # Remove campo obrigatório
+    Remove From Dictionary    ${body}    corporateName  
     
     ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
@@ -130,7 +128,7 @@ Cadastrar Company Nome Duplicado
     # Criar segunda empresa com o mesmo nome
     ${body2}=    Criar Company
     Set To Dictionary    ${body2}    corporateName=${nome}
-    Set To Dictionary    ${body2}    registerCompany=99999999000199  # outro CNPJ qualquer
+    Set To Dictionary    ${body2}    registerCompany=99999999000199  
     ${resposta2}=    POST On Session    alias=develop    url=/company    json=${body2}    expected_status=400
     Log    ${resposta2.json()}
     RETURN    ${resposta2.json()}
@@ -198,11 +196,11 @@ Cadastrar Company CNPJ Maior Que 14 Digitos
     # Criar empresa aleatória
     ${body}=    Criar Company
 
-    # CNPJ com 15 dígitos (maior que 14)
+   
     ${cnpj_grande}=    Generate Random String    length=15    chars=[NUMBERS]
     Set To Dictionary    ${body}    registerCompany=${cnpj_grande}
 
-    # Enviar POST e esperar 400
+    
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
@@ -212,13 +210,13 @@ Cadastrar Company Sem Matriz
     ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Criar corpo do request
+    
     ${body}=    Criar Company
 
     # Remover a matriz (razão social)
     Remove From Dictionary    ${body}    matriz
 
-    # Enviar POST e esperar 400
+   
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
@@ -229,14 +227,14 @@ Cadastrar Company Matriz Alfanumerica
     ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Criar corpo do request
+    
     ${body}=    Criar Company
 
-    # Gerar matriz alfanumérica
+    
     ${matriz_random}=    Generate Random String    length=8    chars=[LETTERSNUMBERS]
     Set To Dictionary    ${body}    matriz=Matriz ${matriz_random}
 
-    # Enviar POST e validar sucesso 201
+   
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
@@ -246,14 +244,14 @@ Cadastrar Company Matriz Duplicada
     ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Criar primeira empresa
+    
     ${body1}=    Criar Company
     ${resposta1}=    POST On Session    alias=develop    url=/company    json=${body1}    expected_status=201
 
-    # Extrair a matriz usada
+    
     ${matriz_dup}=    Set Variable    ${body1["matriz"]}
 
-    # Criar segunda empresa com mesma matriz
+   
     ${body2}=    Criar Company
     Set To Dictionary    ${body2}    matriz=${matriz_dup}
 
@@ -263,7 +261,7 @@ Cadastrar Company Matriz Duplicada
     ${cnpj_random}=    Generate Random String    length=14    chars=[NUMBERS]
     Set To Dictionary    ${body2}    registerCompany=${cnpj_random}
 
-    # Enviar POST e validar erro 400
+    
     ${resposta2}=    POST On Session    alias=develop    url=/company    json=${body2}    expected_status=400
     Log    ${resposta2.json()}
     RETURN    ${resposta2.json()}
@@ -273,14 +271,14 @@ Cadastrar Company Matriz Maior Que 100 Caracteres
     ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Criar corpo do request
+    
     ${body}=    Criar Company
 
-    # Gerar matriz com 101 caracteres
+   
     ${matriz_long}=    Generate Random String    length=101    chars=[LETTERSNUMBERS]
     Set To Dictionary    ${body}    matriz=${matriz_long}
 
-    # Enviar POST e validar erro 400
+    
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
@@ -290,13 +288,13 @@ Cadastrar Company Sem Contato Responsavel
     ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Criar corpo do request
+    
     ${body}=    Criar Company
 
-    # Remover contato do responsável
+    
     Set To Dictionary    ${body}    responsibleContact=
 
-    # Enviar POST e validar erro 400
+    
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
@@ -308,7 +306,7 @@ Cadastrar Company Contato Responsavel Somente Letras
 
     ${body}=    Criar Company
 
-    # Adicionar caracteres inválidos (números ou símbolos)
+   
     Set To Dictionary    ${body}    responsibleContact=Marcia123
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -323,7 +321,7 @@ Cadastrar Company Contato Responsavel Maximo 100
 
     ${body}=    Criar Company
 
-    # Gerar contato com 101 caracteres
+    
     ${responsavel_long}=    Generate Random String    length=101    chars=[LETTERS]
     Set To Dictionary    ${body}    responsibleContact=${responsavel_long}
 
@@ -338,7 +336,7 @@ Cadastrar Company Contato Responsavel Minimo Duas Palavras
 
     ${body}=    Criar Company
 
-    # Colocar apenas uma palavra
+    
     Set To Dictionary    ${body}    responsibleContact=Marcia
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -352,7 +350,7 @@ Cadastrar Company Telefone Obrigatorio
 
     ${body}=    Criar Company
 
-    # Remover telefone
+    
     Set To Dictionary    ${body}    telephone=
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -366,7 +364,7 @@ Cadastrar Company Telefone Somente Numeros
 
     ${body}=    Criar Company
 
-    # Adicionar caracteres inválidos
+    
     Set To Dictionary    ${body}    telephone=5511ABCD5678
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -382,7 +380,7 @@ Cadastrar Company Telefone Maximo
 
     ${body}=    Criar Company
 
-    # Número com mais de 15 dígitos
+    
     Set To Dictionary    ${body}    telephone=551198765432123
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -410,7 +408,7 @@ Cadastrar Company Email Formato Invalido
 
     ${body}=    Criar Company
 
-    # Adicionar e-mail inválido
+    
     Set To Dictionary    ${body}    mail=teste@@dominio..com
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
@@ -476,7 +474,7 @@ Logradouro Caracteres Especiais Permitidos
     
     ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
     Log    ${resposta.json()}
-    # Esse é positivo, pois caracteres são permitidos
+    
 
 Logradouro Máximo 50 Caracteres
     ${TOKEN}       Login com sysadmin
@@ -506,12 +504,12 @@ Atualizar Company Com Sucesso
     ${rand_telefone}       Set Variable    5511${rand_telefone_num}
     ${rand_email}          Set Variable    ${rand_nome}@teste.com
     ${rand_servico}        Generate Random String    8    chars=[LOWER]
-    ${rand_cnpj}           Generate Random String    14   chars=[NUMBERS]   # <-- gera antes
+    ${rand_cnpj}           Generate Random String    14   chars=[NUMBERS]  
 
-    # Criar corpo da requisição
+    
     ${body}    Create Dictionary
     ...    corporateName=Empresa ${rand_nome}
-    ...    registerCompany=${rand_cnpj}  # <-- usa a variável gerada
+    ...    registerCompany=${rand_cnpj}  
     ...    matriz=Matriz ${rand_matriz}
     ...    responsibleContact=Fulano ${rand_responsavel}
     ...    telephone=${rand_telefone}
@@ -519,7 +517,7 @@ Atualizar Company Com Sucesso
     ...    serviceDescription=Serviço ${rand_servico}
     ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
 
-    # Executar PUT
+   
     ${resposta}    PUT On Session    alias=develop    url=/company/${company_id}    json=${body}    expected_status=200
     Log    ${resposta.json()}
     RETURN    ${resposta.json()}
