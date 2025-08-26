@@ -9,23 +9,57 @@ Resource    login.resource
 
 *** Keywords ***
 
+#GET
+
+
+Listar Todas Companies
+    ${TOKEN}       Login com sysadmin
+    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
+    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+    ${resposta}    GET On Session    alias=develop    url=/company    expected_status=200
+    Log    ${resposta.json()}
+    RETURN    ${resposta.json()}
+
+Buscar Company Por ID
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
+    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+    ${resposta}    GET On Session    alias=develop    url=/company/${company_id}    expected_status=200
+    Log    ${resposta.json()}
+    RETURN    ${resposta.json()}
+
+Contar Companies
+    ${TOKEN}       Login com sysadmin
+    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
+    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+    ${resposta}    GET On Session    alias=develop    url=/company/count    expected_status=200
+    Log    ${resposta.json()}
+    RETURN    ${resposta.json()}
+
+#POST
+
+
 Criar Company
+    # Gerar nomes aleatórios para empresa e responsável
     ${nome1_raw}    Generate Random String    length=6    chars=[LOWER]
     ${nome1}        Convert To Title Case    ${nome1_raw}
 
     ${nome2_raw}    Generate Random String    length=8    chars=[LOWER]
     ${nome2}        Convert To Title Case    ${nome2_raw}
 
-    ${responsavel}  Set Variable             ${nome1} ${nome2}
+    ${responsavel}  Set Variable    ${nome1} ${nome2}
+    Should Match Regexp    ${responsavel}    [A-Z][a-z]+ [A-Z][a-z]
 
-    Should Match Regexp    ${responsavel}    ^[A-Z][a-z]+ [A-Z][a-z]+$
+    #${telefone_random}    Set Variable    +5551997999999
 
-    
-    ${telefone_aleatorio}  Generate Random String    length=9    chars=[NUMBERS]
-    ${telefone_random}     Set Variable             5511${telefone_aleatorio}
 
-    
-    ${numero_random}       Evaluate    random.randint(1, 9999)    modules=random
+
+    ${cnpj_random}    Evaluate    ''.join([str(random.randint(0,9)) for _ in range(14)])    modules=random
+
+
+    # Número aleatório para endereço
+    ${numero_random}       Evaluate    random.randint(1, 9999999999)    modules=random
     ${cep_random}          Evaluate    random.choice(["04777001", "01001000", "12345678"])    modules=random
     ${cidade_random}       Evaluate    random.choice(["São Paulo", "Rio de Janeiro", "Curitiba"])    modules=random
     ${estado_random}       Evaluate    random.choice(["SP", "RJ", "PR"])    modules=random
@@ -36,14 +70,14 @@ Criar Company
     ${complemento_numero}  Evaluate    random.randint(1, 500)    modules=random
     ${complemento_random}  Set Variable             Apt ${complemento_numero}
 
-   
+    # Criar corpo do request
     ${body}    Create Dictionary
     ...    corporateName=Empresa ${nome1}
-    ...    registerCompany=12345678000199
+    ...    registerCompany=${cnpj_random}
     ...    mail=test${nome1.lower()}@teste.com
     ...    matriz=Matriz ${nome1}
     ...    responsibleContact=${responsavel}
-    ...    telephone=${telefone_random}
+    ...    telephone=+551991982985
     ...    serviceDescription=Serviço de ${nome1}
     ...    address=@{EMPTY}
 
@@ -62,14 +96,19 @@ Criar Company
     RETURN    ${body}
 
 
+
+
 Cadastrar Company com Sucesso
-    ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    ${TOKEN}    Login com sysadmin
+    ${headers}  Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
     ${body}    Criar Company
     ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
-    Set Suite Variable    ${Company_ID}    ${resposta.json()["newCompany"]["_id"]}
-    RETURN    ${Company_ID}
+    Log    Resposta da API: ${resposta.text}
+    RETURN    ${resposta.json()}
+
+
+#Testes negativos
 
 Cadastrar Company Sem Nome
     ${TOKEN}       Login com sysadmin
@@ -99,10 +138,10 @@ Cadastrar Company Nome Maior Que 100 Caracteres
 
 Cadastrar Company Nome Alfanumerico
     ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session  alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    ${body}=    Criar Company
+    ${body}=        Criar Company
     # Gerar corporateName aleatório com letras + números
     ${nome_random}    Generate Random String    length=6    chars=[LOWER]
     ${numero_random}  Generate Random String    length=4    chars=[NUMBERS]
@@ -110,9 +149,11 @@ Cadastrar Company Nome Alfanumerico
     Set To Dictionary    ${body}    corporateName=${corporate_name}
 
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
-    Log    ${resposta.json()}
-    Set Suite Variable    ${Company_ID_Alfanumerico}    ${resposta.json()["newCompany"]["_id"]}
-    RETURN    ${Company_ID_Alfanumerico}
+    Log    Resposta da API: ${resposta.text}
+
+    # Retornar a mensagem de sucesso
+    RETURN    ${resposta.json()["msg"]}
+
 
 
 Cadastrar Company Nome Duplicado
@@ -223,21 +264,23 @@ Cadastrar Company Sem Matriz
 
 
 Cadastrar Company Matriz Alfanumerica
-    ${TOKEN}=    Login com sysadmin
-    ${headers}=    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session  alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    
-    ${body}=    Criar Company
+    ${body}=        Criar Company
+    # Gerar corporateName aleatório para matriz com letras + números
+    ${nome_random}    Generate Random String    length=6    chars=[LOWER]
+    ${numero_random}  Generate Random String    length=4    chars=[NUMBERS]
+    ${corporate_name}    Set Variable    Matriz ${nome_random}${numero_random}
+    Set To Dictionary    ${body}    corporateName=${corporate_name}
 
-    
-    ${matriz_random}=    Generate Random String    length=8    chars=[LETTERSNUMBERS]
-    Set To Dictionary    ${body}    matriz=Matriz ${matriz_random}
-
-   
     ${resposta}=    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
-    Log    ${resposta.json()}
-    RETURN    ${resposta.json()}
+    Log    Resposta da API: ${resposta.text}
+
+    # Retornar a mensagem de sucesso
+    RETURN    ${resposta.json()["msg"]}
+
 
 Cadastrar Company Matriz Duplicada
     ${TOKEN}=    Login com sysadmin
@@ -442,155 +485,271 @@ Cadastrar Company ServiceDescription Invalida
 
 Logradouro Campo Obrigatório
     ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    
+
     ${body}    Criar Company
-    Remove From Dictionary    ${body["address"]}    street   # Remove o campo Logradouro
-    
+    # Remove o campo street do primeiro endereço
+    Remove From Dictionary    ${body["address"][0]}    street
+
     ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
     Log    ${resposta.json()}
     Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' é obrigatório.
 
+
 Logradouro Somente Alfanumérico
-    ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    
-    ${body}    Criar Company
-    Set To Dictionary    ${body["address"]}    street    @@@###   # caracteres inválidos
-    
-    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
-    Log    ${resposta.json()}
-    Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' deve ser alfanumérico.
-
-Logradouro Caracteres Especiais Permitidos
-    ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    
-    ${body}    Criar Company
-    Set To Dictionary    ${body["address"]}    street    Rua 1ª Teste º Bloco – Especial
-    
-    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
-    Log    ${resposta.json()}
-    
-
-Logradouro Máximo 50 Caracteres
-    ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    
-    ${body}    Criar Company
-    ${logradouro_invalido}=    Evaluate    "A" * 51
-    Set To Dictionary    ${body["address"]}    street    ${logradouro_invalido}
-    
-    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
-    Log    ${resposta.json()}
-    Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' deve ter no máximo 50 caracteres.
-
-
-Atualizar Company Com Sucesso
-    [Arguments]    ${company_id}
     ${TOKEN}       Login com sysadmin
     ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
     Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
 
-    # Gerar dados aleatórios
-    ${rand_nome}           Generate Random String    6    chars=[LOWER]
-    ${rand_matriz}         Generate Random String    6    chars=[LOWER]
-    ${rand_responsavel}    Generate Random String    6    chars=[LOWER]
-    ${rand_telefone_num}   Generate Random String    9    chars=[NUMBERS]
-    ${rand_telefone}       Set Variable    5511${rand_telefone_num}
-    ${rand_email}          Set Variable    ${rand_nome}@teste.com
-    ${rand_servico}        Generate Random String    8    chars=[LOWER]
-    ${rand_cnpj}           Generate Random String    14   chars=[NUMBERS]  
+    ${body}    Criar Company
+    # Define caracteres inválidos no primeiro endereço
+    Set To Dictionary    ${body["address"][0]}    street    @@@###
+
+    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
+    Log    ${resposta.json()}
+    Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' deve ser alfanumérico.
+
+
+Cadastrar Company Logradouro Com Caracteres Especiais Permitidos
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+
+    ${body}    Criar Company
+    # Usando apenas caracteres válidos exatos: letras, números, 'ª', 'º', '-' (evitar aspas curvas)
+    Set To Dictionary    ${body["address"][0]}    street    Rua 1ª Travessa-Centro
+
+    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=201
+    Log    ${resposta.json()}
+
+
 
     
-    ${body}    Create Dictionary
+
+Logradouro Máximo 50 Caracteres
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
+
+    ${body}    Criar Company
+    ${logradouro_invalido}=    Evaluate    "A" * 51
+    Set To Dictionary    ${body["address"][0]}    street    ${logradouro_invalido}
+
+    ${resposta}    POST On Session    alias=develop    url=/company    json=${body}    expected_status=400
+    Log    ${resposta.json()}
+    Should Be Equal    ${resposta.json()["error"][0]}    O campo 'Logradouro' deve ter no máximo 50 caracteres.
+
+#PUT 
+
+Atualizar Company Com Sucesso
+    [Arguments]    ${company_id}
+    ${TOKEN}=       Login com sysadmin
+    ${headers}=     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session  alias=develop    url=${baseURL}    headers=${headers}    verify=true
+
+    # Gerar dados válidos
+    ${rand_nome}=           Generate Random String    6    [LETTERS]
+    ${rand_cnpj}=           Generate Random String    14    [NUMBERS]
+    ${rand_matriz}=         Generate Random String    5    [LETTERS]
+    ${rand_responsavel}=    Generate Random String    6    [LETTERS]
+    ${rand_telefone_num}=   Generate Random String    9    [NUMBERS]
+    ${rand_servico}=        Generate Random String    8    [LETTERS]
+    ${rand_razao}=          Generate Random String    10    [LETTERS]
+
+    # Montar campos com formato aceito
+    ${responsavel}=    Set Variable    ${rand_nome.title()} ${rand_responsavel.title()}
+    ${telefone}=       Set Variable    +5511${rand_telefone_num}
+
+  
+
+    # Criar body com address aninhado
+    ${body}=    Create Dictionary
     ...    corporateName=Empresa ${rand_nome}
-    ...    registerCompany=${rand_cnpj}  
+    ...    registerCompany=${rand_cnpj}
     ...    matriz=Matriz ${rand_matriz}
+    ...    responsibleContact=${responsavel}
+    ...    telephone=${telefone}
+    ...    mail=${rand_nome}@teste.com
+    ...    serviceDescription=Serviço ${rand_servico}
+    ...    razao=Razao ${rand_razao}
+
+    ${resposta}=    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=200
+    ${updated}=    Set Variable    ${resposta.json()["updatedCompany"]}
+    Log To Console    ${updated}
+    RETURN    ${updated}
+
+
+
+
+
+
+# Testes negativos
+
+Atualizar Company Nome Vazio
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_cnpj}           Generate Random String    14   chars=[NUMBERS]
+    ${rand_responsavel}    Generate Random String    6    chars=[LOWER]
+    ${rand_telefone}       Set Variable    5511${123456789}
+    ${rand_email}          Set Variable    teste${rand_responsavel}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
     ...    responsibleContact=Fulano ${rand_responsavel}
     ...    telephone=${rand_telefone}
     ...    mail=${rand_email}
-    ...    serviceDescription=Serviço ${rand_servico}
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=Razao Teste
     ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
 
-   
-    ${resposta}    PUT On Session    alias=develop    url=/company/${company_id}    json=${body}    expected_status=200
-    Log    ${resposta.json()}
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
     RETURN    ${resposta.json()}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Listar Todas Companies
-    ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    ${resposta}    GET On Session    alias=develop    url=/company    expected_status=200
-    Log    ${resposta.json()}
-    RETURN    ${resposta.json()}
-
-Buscar Company Por ID
+Atualizar Company CNPJ Invalido
     [Arguments]    ${company_id}
     ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    ${resposta}    GET On Session    alias=develop    url=/company/${company_id}    expected_status=200
-    Log    ${resposta.json()}
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_email}   Set Variable    ${rand_nome}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=12345
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=Fulano Teste
+    ...    telephone=5511999999999
+    ...    mail=${rand_email}
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=Razao Teste
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
     RETURN    ${resposta.json()}
 
-Contar Companies
+Atualizar Company Razao Social Vazia
+    [Arguments]    ${company_id}
     ${TOKEN}       Login com sysadmin
-    ${headers}    Create Dictionary    accept=application/json    Authorization=${TOKEN}
-    Create Session    alias=develop    url=${baseURL}    headers=${headers}    verify=true
-    ${resposta}    GET On Session    alias=develop    url=/company/count    expected_status=200
-    Log    ${resposta.json()}
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}    Generate Random String    14   chars=[NUMBERS]
+    ${rand_email}   Set Variable    ${rand_nome}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=Fulano Teste
+    ...    telephone=5511999999999
+    ...    mail=${rand_email}
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
     RETURN    ${resposta.json()}
 
+Atualizar Company Contato Invalido
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}    Generate Random String    14   chars=[NUMBERS]
+    ${rand_email}   Set Variable    ${rand_nome}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=123456
+    ...    telephone=5511999999999
+    ...    mail=${rand_email}
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=Razao Teste
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
+    RETURN    ${resposta.json()}
+
+Atualizar Company Telefone Invalido
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}    Generate Random String    14   chars=[NUMBERS]
+    ${rand_email}   Set Variable    ${rand_nome}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=Fulano Teste
+    ...    telephone=ABCDE
+    ...    mail=${rand_email}
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=Razao Teste
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
+    RETURN    ${resposta.json()}
+
+Atualizar Company Email Invalido
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}    Generate Random String    14   chars=[NUMBERS]
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=Fulano Teste
+    ...    telephone=5511999999999
+    ...    mail=email-invalido
+    ...    serviceDescription=Serviço Teste
+    ...    corporateReason=Razao Teste
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
+    RETURN    ${resposta.json()}
+
+Atualizar Company Descricao Vazia
+    [Arguments]    ${company_id}
+    ${TOKEN}       Login com sysadmin
+    ${headers}     Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=${TOKEN}
+    Create Session    develop    ${baseURL}    headers=${headers}    verify=true
+
+    ${rand_nome}    Generate Random String    8    chars=[LOWER]
+    ${rand_cnpj}    Generate Random String    14   chars=[NUMBERS]
+    ${rand_email}   Set Variable    ${rand_nome}@teste.com
+
+    ${body}    Create Dictionary
+    ...    corporateName=Empresa ${rand_nome}
+    ...    registerCompany=${rand_cnpj}
+    ...    matriz=Matriz Teste
+    ...    responsibleContact=Fulano Teste
+    ...    telephone=5511999999999
+    ...    mail=${rand_email}
+    ...    serviceDescription=
+    ...    corporateReason=Razao Teste
+    ...    address={"zipCode": "12345678", "city": "São Paulo", "state": "SP", "street": "Rua Teste", "number": 123, "country": "Brasil"}
+
+    ${resposta}    PUT On Session    develop    /company/${company_id}    json=${body}    expected_status=400
+    RETURN    ${resposta.json()}
 
