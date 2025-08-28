@@ -6,6 +6,9 @@ Library        Collections
 Resource       login.resource
 
 
+*** Variables ***
+${baseURL}    https://api-invictus.qacoders.dev.br/api
+
 *** Keywords ***
 Login com Usuário
     ${TOKEN}     Login com sysadmin

@@ -7,6 +7,9 @@ Library    Collections
 Library    BuiltIn
 Resource    login.resource
 
+*** Variables ***
+${baseURL}    https://api-invictus.qacoders.dev.br/api
+
 *** Keywords ***
 
 #GET
