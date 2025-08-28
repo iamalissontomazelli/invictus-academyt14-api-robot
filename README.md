@@ -44,9 +44,7 @@ git push origin sprint-xx
 git checkout nome-da-branch
 
 
-### 🔄 Atualizar a branch local com a branch (main)
-```bash
-git pull origin main
+
 
 
 
